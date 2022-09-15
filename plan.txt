@@ -1,0 +1,35 @@
+1.- Wire frame sketch with buttons and "popups"
+        a.- list: DONE
+        b.- modal display for a single student: DONE
+        c.- interactions
+            i.-   expelling a student
+            ii.-  addign a prefect
+            iii.- addign an aditional prefect
+            iv.-  been prevented to add a thrid prefect
+            v.-   making a student member of the inquisitorial squad
+            vi.-  getting nofified that a student can not be a member
+
+2.- Activity Diagram for user interactions  (simulate the interaction to be sure it works)
+3.- Detailled function activity diagram
+        a.- Overview of all the functions we are going to need
+        b.- Divided the functions into components
+
+4.- A list or drawing of the main components of the system (the epics onthe story map)
+
+5.- A can/ cant list or drawing of the activity diagram about how to implement them at the moment of the design
+        a.- I think I know
+        b.- I think I dont know
+        c.- I dont know
+
+nickname
+        for (let i = 1; i < studentFullName.lenght; i++) {
+previousChar = studentFullName[i - 1];
+ 
+if (previousChar === '"' || previousChar === "-") {
+studentFullName[i].toUpperCase(); //makes sure that if the previous character is ", the letter becomes upper case
+ } else {
+studentFullName[i];
+ }
+ }
+
+
