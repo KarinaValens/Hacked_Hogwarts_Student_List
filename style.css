@@ -5,7 +5,9 @@
   --high-light: #f7ee23;
   --white: #ffffff;
   --button1st: hsl(0deg 0% 89% / 18%);
-  --button2nd: #d74f41;
+  --button2nd: hsl(0deg 5% 34% / 62%);
+  --background: hsl(0deg 0% 0% / 60%);
+  --table: hsl(0deg 1% 33% / 60%);
   --font-tittle: "Aladin", cursive;
 }
 
@@ -46,7 +48,7 @@ p {
 /* --------------------------------- Home Page --------------------- */
 #intro_page {
   height: 100%;
-  background: rgb(0, 0, 0, 0.6) url(./images/dark-stormy-clouds.jpg) no-repeat right top;
+  background: var(--background) url(./images/dark-stormy-clouds.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
 }
@@ -81,11 +83,31 @@ footer {
 
 /* --------------------------------- Student List Page --------------------- */
 
-/* #body_list {
-  background: rgb(0, 0, 0, 0.6) url(./images/rithika-gopalakrishnan-JK0l2xvN1fY-unsplash.jpg) no-repeat right top;
+#body_list {
+  background: var(--background) url(./images/rithika-gopalakrishnan-JK0l2xvN1fY-unsplash.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
-} */
+}
+table {
+  width: 100%;
+}
+table,
+th,
+td {
+  color: var(--white);
+  border: 1px solid var(--button1st);
+  padding: 2%;
+}
+th {
+  border: 2px solid var(--button1st);
+  background-color: var(--background);
+  border-radius: 6px;
+  margin: 5%;
+}
+td {
+  background-color: var(--table);
+  border-radius: 6px;
+}
 
 input {
   width: 50px;

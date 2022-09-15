@@ -35,6 +35,7 @@ function capitalize(str) {
 }
 
 
+
 /* function fullName(lastName, firstName, middleName) {
     if (middleName) {
         return `${firstName} ${middleName} ${lastName}`;
@@ -49,32 +50,33 @@ function handleJsonData(studentInf) {
     studentInf.forEach(stud => {
         //clean the data for each element
         const student = Object.create(Student); //at this point create the Prototype object for Student
-        let fullN = stud.fullname.trim(); //let or const?
-
-
+        const fullN = stud.fullname.trim();
 
         /* -------------------first name------------- */
-        student.name = capitalize(fullN.substring(0, fullN.indexOf(" ")).trim());
+        student.name = capitalize(fullN.substring(0, fullN.indexOf(" ")));
 
         /* -------------------last-name------------- */
-        student.lastName = capitalize(fullN.substring(fullN.lastIndexOf(" ")).trim());
+        student.lastName = capitalize(fullN.substring(fullN.lastIndexOf(" ") + 1));
+
+        if (student.lastName.includes("-")) {
+            student.lastName = student.lastName.substring(0, student.lastName.indexOf("-") + 1) + capitalize(student.lastName.substring(student.lastName.indexOf("-") + 1))
+        }
 
         /* -------------------middle-name------------- */
-        student.middleName = capitalize(fullN.substring(fullN.indexOf(" ") + 1, fullN.lastIndexOf(" ")).trim());
+
+        student.middleName = capitalize(fullN.substring(fullN.indexOf(" ") + 1, fullN.lastIndexOf(" ") + 1));
 
         if (student.middleName.length < 1) {
             student.middleName = "null";
+        } else if (student.middleName.includes(`"`)) {
+            student.middleName = "null";
         }
+
         /* -------------------if just one name------------- */
-
-        /*    if (student.middleName && student.lastName) {
-               console.log(`name: ${student.name} nickname:${student.middleName} lastname ${student.lastName}`);
-           } else {
-
-               console.log(`name: ${student.name}`)
-           } */
+        //Leanne
 
         /* -------------------nick name------------- */
+        student.nickName = capitalize(fullN.substring(fullN.indexOf(`"`) + 1, fullN.lastIndexOf(`"`)))
 
         /* -------------student.house----------- */
         student.house = capitalize(stud.house.trim());
@@ -99,11 +101,11 @@ function displayStudent(student) {
     clone.querySelector("[data-field=name]").textContent = student.name;
     clone.querySelector("[data-field=middle_name]").textContent = student.middleName;
     clone.querySelector("[data-field=last_name]").textContent = student.lastName;
-    //clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
+    clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
 
     // 4.- Select the new DOM parent element
-    const parent = document.querySelector("main");
+    const parent = document.querySelector("tbody");
 
     //5.- Append the child to the new parent element inside the DOM
     parent.appendChild(clone);
