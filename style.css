@@ -2,7 +2,7 @@
 :root {
   /* colors */
   --bc: #000;
-  --high-light: #f7ee23;
+  --high-light: hsl(97deg 45% 58% / 77%);
   --white: #ffffff;
   --button1st: hsl(0deg 0% 89% / 18%);
   --button2nd: hsl(0deg 5% 34% / 62%);
@@ -88,29 +88,50 @@ footer {
   background-blend-mode: color;
   background-size: cover;
 }
+
+/* --------TABLE-------- */
+
 table {
-  width: 100%;
+  width: 90%;
+  margin: 3% auto;
 }
+
 table,
 th,
-td {
-  color: var(--white);
+td,
+input,
+button {
   border: 1px solid var(--button1st);
-  padding: 2%;
-}
-th {
-  border: 2px solid var(--button1st);
-  background-color: var(--background);
-  border-radius: 6px;
-  margin: 5%;
-}
-td {
-  background-color: var(--table);
   border-radius: 6px;
 }
 
+th,
 input {
-  width: 50px;
+  border: 2px solid var(--button1st);
+  background-color: var(--background);
+  padding: 1%;
+  font: bold 14px/20px var(--font-tittle);
+  color: var(--high-light);
+}
+td,
+button {
+  background-color: var(--table);
+  padding: 1% 2%;
+  font: 14px/20px var(--font-tittle);
+  color: var(--white);
+}
+
+/*---------- TOTALS -----------*/
+#wraper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10%;
+  margin: 3% 10%;
+}
+#totals,
+#houses {
+  display: flex;
+  flex-direction: column;
 }
 
 /* small tablet styles */

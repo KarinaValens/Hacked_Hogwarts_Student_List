@@ -15,12 +15,28 @@
         <h2>The Hogwarts' Student List</h2>
     </header>
     <main>
-        <!-- <input type="text">
-        <input type="text">
-        <input type="text">
-        <input type="text">
-        <input type="text">
-        <input type="text"> -->
+        <div id="wraper">
+            <div id="totals">
+                <input type="text" id="total">
+                <input type="text" id="t_disp">
+            </div>
+
+            <div id="houses">
+                <input type="text" id="t_gryf">
+                <input type="text" id="t_slyt">
+                <input type="text" id="t_huff">
+                <input type="text" id="t_raven">
+
+            </div>
+        </div>
+
+        <p>
+            Filter:
+            <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
+            <button class="filter" data-action="filter" data-filter="inq_squad">Inquisitorial Squad</button>
+            <button class="filter" data-action="filter" data-filter="*">Expelled Students</button>
+            <button class="filter" data-action="filter" data-filter="*">All Students</button>
+        </p>
 
         <table id="list">
             <thead>
@@ -30,6 +46,8 @@
                     <th>Last Name</th>
                     <th>Nickname</th>
                     <th>House</th>
+                    <th>Extra Curricular</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +64,8 @@
                 <td data-field="last_name">Last Name</td>
                 <td data-field="nick_name">Nickname</td>
                 <td data-field="house">House</td>
+                <td data-field="ext_curricular">Extra Curricular</td>
+
             </tr>
 
         </template>

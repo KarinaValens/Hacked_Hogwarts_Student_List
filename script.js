@@ -17,6 +17,12 @@ const Student = {
 function init() {
 
     loadJson();
+    buttons();
+}
+
+function buttons() {
+    document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
+    document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
 }
 
 function loadJson() {
@@ -34,16 +40,6 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
 
-
-
-/* function fullName(lastName, firstName, middleName) {
-    if (middleName) {
-        return `${firstName} ${middleName} ${lastName}`;
-    }
-    return `${firstName}`
-    //return `name: _${firstName}_, lastname: _${lastName}_, middlename: _${middleName}_`;
-} */
-
 function handleJsonData(studentInf) {
     //console.log(studentInf);
 
@@ -57,7 +53,6 @@ function handleJsonData(studentInf) {
 
         /* -------------------last-name------------- */
         student.lastName = capitalize(fullN.substring(fullN.lastIndexOf(" ") + 1));
-
         if (student.lastName.includes("-")) {
             student.lastName = student.lastName.substring(0, student.lastName.indexOf("-") + 1) + capitalize(student.lastName.substring(student.lastName.indexOf("-") + 1))
         }
@@ -65,26 +60,60 @@ function handleJsonData(studentInf) {
         /* -------------------middle-name------------- */
 
         student.middleName = capitalize(fullN.substring(fullN.indexOf(" ") + 1, fullN.lastIndexOf(" ") + 1));
-
         if (student.middleName.length < 1) {
             student.middleName = "null";
         } else if (student.middleName.includes(`"`)) {
             student.middleName = "null";
         }
 
-        /* -------------------if just one name------------- */
-        //Leanne
-
         /* -------------------nick name------------- */
         student.nickName = capitalize(fullN.substring(fullN.indexOf(`"`) + 1, fullN.lastIndexOf(`"`)))
 
-        /* -------------student.house----------- */
+        /* -------------------if just one name------------- */
+        if (student.name === "") {
+            student.name = student.lastName;
+            student.lastName = "";
+        }
+
+        /* ---------------------student.house--------------- */
         student.house = capitalize(stud.house.trim());
+
+
+        /* -------------------  //TOTALS// ----------------- */
+
+
         return studNewList.push(student); //adding a student to the allStudents array of object at the beginning of the script
     });
-
     displayNewList();
 }
+
+function selectFilter(event) {
+    const filter = event.target.dataset.filter;
+    console.log(`user selected ${filter}`);
+    filterList(filter);
+}
+
+function filterList(property) {
+
+    let filteredList = studNewList;
+
+    if (property === "prefect") {
+        filteredList = studNewList.filter(isPrefect);
+    } else if (property === "isSquadMemb") {
+        filteredList = studNewList.filter(isSquadMemb);
+    }
+    displayNewList(filteredList);
+}
+
+function isPrefect(student) {
+    return student.prefect === true;
+}
+
+function isSquadMemb(student) {
+    return student.squad === true;
+}
+
+
 
 function displayNewList() {
     //display new list
@@ -103,6 +132,9 @@ function displayStudent(student) {
     clone.querySelector("[data-field=last_name]").textContent = student.lastName;
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
+
+    /* -------- //totals//-------- */
+    document.querySelector("#total").value = `Total Hogwards' Students ${studNewList.length+1}`;
 
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");

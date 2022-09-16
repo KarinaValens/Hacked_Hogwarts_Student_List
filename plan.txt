@@ -21,15 +21,6 @@
         b.- I think I dont know
         c.- I dont know
 
-nickname
-        for (let i = 1; i < studentFullName.lenght; i++) {
-previousChar = studentFullName[i - 1];
- 
-if (previousChar === '"' || previousChar === "-") {
-studentFullName[i].toUpperCase(); //makes sure that if the previous character is ", the letter becomes upper case
- } else {
-studentFullName[i];
- }
- }
+
 
 
