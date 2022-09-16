@@ -18,14 +18,18 @@
         <div id="wraper">
             <div id="totals">
                 <input type="text" id="total">
-                <input type="text" id="t_disp">
+                <input type="text" id="total_disp">
             </div>
 
             <div id="houses">
-                <button class="input" data-action="filter" data-filter="gryffindor">Students in Gryffindor</button>
-                <button class="input" data-action="filter" data-filter="slytherin">Students in Slytherin</button>
-                <button class="input" data-action="filter" data-filter="hufflepuff">Students in Hufflepuff</button>
-                <button class="input" data-action="filter" data-filter="ravenclaw">Students in Ravenclaw</button>
+                <button class="input" data-action="filter" data-filter="gryffindor" id="grif">Students in
+                    Gryffindor</button>
+                <button class="input" data-action="filter" data-filter="slytherin" id="slyt">Students in
+                    Slytherin</button>
+                <button class="input" data-action="filter" data-filter="hufflepuff" id="huff">Students in
+                    Hufflepuff</button>
+                <button class="input" data-action="filter" data-filter="ravenclaw" id="raven">Students in
+                    Ravenclaw</button>
             </div>
         </div>
 
@@ -33,7 +37,7 @@
             Filter:
             <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
             <button class="filter" data-action="filter" data-filter="inq_squad">Inquisitorial Squad</button>
-            <button class="filter" data-action="filter" data-filter="*">Expelled Students</button>
+            <button class="filter" data-action="filter" data-filter="exp-studenst">Expelled Students</button>
             <button class="filter" data-action="filter" data-filter="*">All Students</button>
         </p>
 
@@ -46,12 +50,11 @@
                     <th>Nickname</th>
                     <th>House</th>
                     <th>Extra Curricular</th>
-
                 </tr>
             </thead>
+
             <tbody>
                 <!--template will be copied and inserted here -->
-
             </tbody>
         </table>
 

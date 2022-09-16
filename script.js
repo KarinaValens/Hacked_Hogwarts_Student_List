@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", init);
 
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
-let studNewList = [];
-
+let allStudents = [];
+//prototype
 const Student = {
     name: " ",
     lastName: " ",
@@ -76,9 +76,9 @@ function handleJsonData(studentInf) {
         student.house = capitalize(stud.house.trim());
 
         /* -------------------  //TOTALS// ----------------- */
-        return studNewList.push(student); //adding a student to the allStudents array of object at the beginning of the script
+        return allStudents.push(student); //adding a student to the allStudents array of object at the beginning of the script
     });
-    displayNewList();
+    displayNewList(allStudents);
 }
 
 function capitalize(str) {
@@ -93,20 +93,31 @@ function selectFilter(event) {
 }
 
 function filterList(studentHouse) {
-    let filteredList = studNewList;
+    let filteredList = allStudents;
+    const grif = document.querySelector("#grif");
+    const slyt = document.querySelector("#slyt");
+    const huff = document.querySelector("#huff");
+    const raven = document.querySelector("#raven");
 
     if (studentHouse === "gryffindor") {
-        filteredList = studNewList.filter(houseG);
+        filteredList = allStudents.filter(houseG);
+        grif.textContent = `There are ${filteredList.length} students in Gryffindor`
     } else if (studentHouse === "slytherin") {
-        filteredList = studNewList.filter(houseS);
+        filteredList = allStudents.filter(houseS);
+        slyt.textContent = `There are ${filteredList.length} students in Slytherin`
     } else if (studentHouse === "hufflepuff") {
-        filteredList = studNewList.filter(houseH);
-    } else if (studentHouse === "ravenclaw") {
-        filteredList = studNewList.filter(houseR)
-    }
+        filteredList = allStudents.filter(houseH);
+        huff.textContent = `There are ${filteredList.length} students in Hufflepuff`
 
-    displayNewList(filteredList);
+    } else if (studentHouse === "ravenclaw") {
+        filteredList = allStudents.filter(houseR)
+        raven.textContent = `There are ${filteredList.length} students in Ravenclaw`
+    }
+    document.querySelector("#total_disp").value = `Total Hogwards' Students ${filteredList.length}`;
+
+    return displayNewList(filteredList);
 }
+
 
 function houseG(student) {
     return student.house === "Gryffindor";
@@ -126,9 +137,11 @@ function houseR(student) {
 
 
 function displayNewList(students) {
+
     // clear the list when we add filters else it is going to print more objects
     document.querySelector("#list tbody").innerHTML = "";
-    //display new list
+
+    //built a new list
     students.forEach(displayStudent);
 }
 
@@ -157,8 +170,6 @@ function displayStudent(student) {
         document.querySelector("main").classList.add("close");
 
 
-
-
         document.querySelector("#name").textContent = student.name;
         document.querySelector("#middle_name").textContent = student.middleName;
         document.querySelector("#last_name").textContent = student.lastName;
@@ -170,7 +181,7 @@ function displayStudent(student) {
 
 
     /* -------- //TOTALS//-------- */
-    document.querySelector("#total").value = `Total Hogwards' Students ${studNewList.length+1}`;
+    document.querySelector("#total").value = `Total Hogwards' Students ${allStudents.length+1}`;
 
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");
