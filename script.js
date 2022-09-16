@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
-const studNewList = [];
+let studNewList = [];
 
 const Student = {
     name: " ",
@@ -35,10 +35,7 @@ function loadJson() {
         });
 }
 
-function capitalize(str) {
-    //charAt is character at index 0 to select the index 0 instid of substring(0,something) 
-    return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
-}
+
 
 function handleJsonData(studentInf) {
     //console.log(studentInf);
@@ -78,13 +75,15 @@ function handleJsonData(studentInf) {
         /* ---------------------student.house--------------- */
         student.house = capitalize(stud.house.trim());
 
-
         /* -------------------  //TOTALS// ----------------- */
-
-
         return studNewList.push(student); //adding a student to the allStudents array of object at the beginning of the script
     });
     displayNewList();
+}
+
+function capitalize(str) {
+    //charAt is character at index 0 to select the index 0 instid of substring(0,something) 
+    return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
 
 function selectFilter(event) {
@@ -93,31 +92,44 @@ function selectFilter(event) {
     filterList(filter);
 }
 
-function filterList(property) {
-
+function filterList(studentHouse) {
     let filteredList = studNewList;
 
-    if (property === "prefect") {
-        filteredList = studNewList.filter(isPrefect);
-    } else if (property === "isSquadMemb") {
-        filteredList = studNewList.filter(isSquadMemb);
+    if (studentHouse === "gryffindor") {
+        filteredList = studNewList.filter(houseG);
+    } else if (studentHouse === "slytherin") {
+        filteredList = studNewList.filter(houseS);
+    } else if (studentHouse === "hufflepuff") {
+        filteredList = studNewList.filter(houseH);
+    } else if (studentHouse === "ravenclaw") {
+        filteredList = studNewList.filter(houseR)
     }
+
     displayNewList(filteredList);
 }
 
-function isPrefect(student) {
-    return student.prefect === true;
+function houseG(student) {
+    return student.house === "Gryffindor";
 }
 
-function isSquadMemb(student) {
-    return student.squad === true;
+function houseS(student) {
+    return student.house === "Slytherin";
+}
+
+function houseH(student) {
+    return student.house === "Hufflepuff";
+}
+
+function houseR(student) {
+    return student.house === "Ravenclaw";
 }
 
 
-
-function displayNewList() {
+function displayNewList(students) {
+    // clear the list when we add filters else it is going to print more objects
+    document.querySelector("#list tbody").innerHTML = "";
     //display new list
-    studNewList.forEach(displayStudent);
+    students.forEach(displayStudent);
 }
 
 function displayStudent(student) {
@@ -132,8 +144,32 @@ function displayStudent(student) {
     clone.querySelector("[data-field=last_name]").textContent = student.lastName;
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
+    clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular;
 
-    /* -------- //totals//-------- */
+    /* ----------- //POP-UP// ---------------- */
+    clone.querySelector("tr").addEventListener("click", (event) => {
+        //open pop-up
+        document.querySelector("#pop_up").classList.add("open");
+        document.querySelector("#close_pop").classList.add("open");
+        //changing body background color
+        document.querySelector("body").style.backgroundColor = "black";
+        //hidding table
+        document.querySelector("main").classList.add("close");
+
+
+
+
+        document.querySelector("#name").textContent = student.name;
+        document.querySelector("#middle_name").textContent = student.middleName;
+        document.querySelector("#last_name").textContent = student.lastName;
+        document.querySelector("#nick_name").textContent = student.nickName;
+        document.querySelector("#house").textContent = student.house;
+        //querySelector("#ext_curricular").textContent = student.extCurricular;
+        //document.querySelector("#pic").textContent = student.pic;
+    });
+
+
+    /* -------- //TOTALS//-------- */
     document.querySelector("#total").value = `Total Hogwards' Students ${studNewList.length+1}`;
 
     // 4.- Select the new DOM parent element

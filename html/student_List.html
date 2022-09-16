@@ -22,11 +22,10 @@
             </div>
 
             <div id="houses">
-                <input type="text" id="t_gryf">
-                <input type="text" id="t_slyt">
-                <input type="text" id="t_huff">
-                <input type="text" id="t_raven">
-
+                <button class="input" data-action="filter" data-filter="gryffindor">Students in Gryffindor</button>
+                <button class="input" data-action="filter" data-filter="slytherin">Students in Slytherin</button>
+                <button class="input" data-action="filter" data-filter="hufflepuff">Students in Hufflepuff</button>
+                <button class="input" data-action="filter" data-filter="ravenclaw">Students in Ravenclaw</button>
             </div>
         </div>
 
@@ -56,7 +55,7 @@
             </tbody>
         </table>
 
-
+        <!-- TEMPLATE -->
         <template id="template">
             <tr>
                 <td data-field="name">Name</td>
@@ -65,12 +64,40 @@
                 <td data-field="nick_name">Nickname</td>
                 <td data-field="house">House</td>
                 <td data-field="ext_curricular">Extra Curricular</td>
-
             </tr>
-
         </template>
 
     </main>
+
+    <!-- POP-UP -->
+    <div id="pop_container">
+
+        <dl id="pop_up">
+
+            <dt>Image/photo filename:</dt>
+            <dd id="pic"></dd>
+
+            <dt>First name: </dt>
+            <dd id="name"></dd>
+
+            <dt>Middle name:</dt>
+            <dd id="middle_name"></dd>
+
+            <dt>Last name:</dt>
+            <dd id="last_name"></dd>
+
+            <dt>Nickname:</dt>
+            <dd id="nick_name"></dd>
+
+            <dt>House:</dt>
+            <dd id="house"></dd>
+
+            <dt>Extra Curricular Activities:</dt>
+            <dd id="ext_curricular"></dd>
+
+        </dl>
+        <a href="../html/student_List.html" id="close_pop">X</a>
+    </div>
     <footer></footer>
     <script src="../script.js"></script>
 </body>

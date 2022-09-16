@@ -1,8 +1,9 @@
 /* varialbes */
 :root {
   /* colors */
-  --bc: #000;
+  --bc: hsl(0deg 0% 0%);
   --high-light: hsl(97deg 45% 58% / 77%);
+  --high-light2: hsl(233deg 88% 41%);
   --white: #ffffff;
   --button1st: hsl(0deg 0% 89% / 18%);
   --button2nd: hsl(0deg 5% 34% / 62%);
@@ -99,29 +100,29 @@ table {
 table,
 th,
 td,
-input,
+.input,
 button {
-  border: 1px solid var(--button1st);
+  border: 1.5px solid var(--button1st);
   border-radius: 6px;
 }
 
 th,
-input {
-  border: 2px solid var(--button1st);
+.input {
   background-color: var(--background);
   padding: 1%;
-  font: bold 14px/20px var(--font-tittle);
+  font: bold 1rem/2rem var(--font-tittle);
+
   color: var(--high-light);
 }
 td,
 button {
   background-color: var(--table);
   padding: 1% 2%;
-  font: 14px/20px var(--font-tittle);
+  font: 14px/10px var(--font-tittle);
   color: var(--white);
 }
 
-/*---------- TOTALS -----------*/
+/*-------------------- // TOTALS // ---------------*/
 #wraper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -132,6 +133,59 @@ button {
 #houses {
   display: flex;
   flex-direction: column;
+}
+#houses button {
+  margin-top: 3%;
+}
+/* ------------------ // POP-UP // ------------- */
+main {
+  position: relative;
+}
+
+#pop_up {
+  display: none;
+  background-color: var(--);
+  position: absolute;
+  left: 17%;
+  top: 20%;
+  width: 60%;
+  color: var(--white);
+  font: bold 1rem/3rem var(--font-tittle);
+
+  padding: 0.7rem 4rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+}
+dt {
+  color: var(--high-light2);
+  border-bottom: 1.5px solid var(--button2nd);
+}
+dd {
+  color: var(--bc);
+}
+dt,
+dd {
+  display: inline-block;
+  width: 40%;
+}
+
+#pop_up.open {
+  display: block;
+}
+#close_pop.open {
+  display: block;
+}
+main.close {
+  display: none;
+}
+#close_pop {
+  display: none;
+  font: bold 3rem/3rem var(--font-tittle);
+  position: absolute;
+  left: 80%;
+  color: var(--white);
 }
 
 /* small tablet styles */
