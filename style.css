@@ -2,14 +2,18 @@
 :root {
   /* colors */
   --bc: hsl(0deg 0% 0%);
-  --high-light: hsl(97deg 45% 58% / 77%);
+  --high-light: hsl(55deg 89% 47%);
   --high-light2: hsl(233deg 88% 41%);
   --white: #ffffff;
+
   --button1st: hsl(0deg 0% 89% / 18%);
   --button2nd: hsl(0deg 5% 34% / 62%);
+
   --background: hsl(0deg 0% 0% / 60%);
   --table: hsl(0deg 1% 33% / 60%);
+
   --font-tittle: "Aladin", cursive;
+  --font-body: "Cormorant Garamond", serif;
 }
 
 /* reset */
@@ -33,7 +37,8 @@ dl {
 }
 
 /* fonts */
-@import url("https://fonts.googleapis.com/css2?family=Aladin&family=Smooch&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Aladin&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap");
+
 h1 {
   font: bold 50px /30px var(--font-tittle);
   color: var(--high-light);
@@ -90,6 +95,12 @@ footer {
   background-size: cover;
 }
 
+#subt {
+  display: block;
+  width: 40%;
+  margin: 3% auto;
+}
+
 /* --------TABLE-------- */
 
 table {
@@ -102,7 +113,8 @@ th,
 td,
 .input,
 button {
-  border: 1.5px solid var(--button1st);
+  border-bottom: 1.5px solid var(--button1st);
+  border-right: 1.5px solid var(--button1st);
   border-radius: 6px;
 }
 
@@ -110,23 +122,29 @@ th,
 .input {
   background-color: var(--background);
   padding: 1%;
-  font: bold 1rem/2rem var(--font-tittle);
-
+  font: bold 0.9rem/1rem var(--font-body);
   color: var(--high-light);
 }
+
 td,
-button {
+button,
+input {
   background-color: var(--table);
   padding: 1% 2%;
-  font: 14px/10px var(--font-tittle);
+  font: 14px/10px var(--font-body);
   color: var(--white);
+}
+input {
+  margin: 3%;
+  border-radius: 6px;
+  padding: 1%;
 }
 
 /*-------------------- // TOTALS // ---------------*/
 #wraper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10%;
+  gap: 15%;
   margin: 3% 10%;
 }
 #totals,
@@ -186,6 +204,13 @@ main.close {
   position: absolute;
   left: 80%;
   color: var(--white);
+}
+
+#body_list.back_griff {
+  height: 100%;
+  background: var(--background) url(./images/Gryffindor.jpg) no-repeat center;
+  background-blend-mode: color;
+  background-size: contain;
 }
 
 /* small tablet styles */

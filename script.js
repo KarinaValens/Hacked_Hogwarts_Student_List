@@ -94,17 +94,15 @@ function selectFilter(event) {
 
 function filterList(studentHouse) {
     let filteredList = allStudents;
-    const grif = document.querySelector("#grif");
-    const slyt = document.querySelector("#slyt");
-    const huff = document.querySelector("#huff");
-    const raven = document.querySelector("#raven");
 
     if (studentHouse === "gryffindor") {
         filteredList = allStudents.filter(houseG);
-        grif.textContent = `There are ${filteredList.length} students in Gryffindor`
+        grif.textContent = `There are ${filteredList.length} students in Gryffindor`;
+        document.querySelector("#body_list").classList.add("back_griff");
     } else if (studentHouse === "slytherin") {
         filteredList = allStudents.filter(houseS);
         slyt.textContent = `There are ${filteredList.length} students in Slytherin`
+
     } else if (studentHouse === "hufflepuff") {
         filteredList = allStudents.filter(houseH);
         huff.textContent = `There are ${filteredList.length} students in Hufflepuff`
@@ -115,8 +113,10 @@ function filterList(studentHouse) {
     }
     document.querySelector("#total_disp").value = `Total Hogwards' Students ${filteredList.length}`;
 
-    return displayNewList(filteredList);
+    displayNewList(filteredList);
+
 }
+
 
 
 function houseG(student) {
@@ -164,15 +164,16 @@ function displayStudent(student) {
         //open pop-up
         document.querySelector("#pop_up").classList.add("open");
         document.querySelector("#close_pop").classList.add("open");
-        //changing body background color
-        document.querySelector("body").style.backgroundColor = "black";
+        /* //changing body background color
+        document.querySelector("body").style.backgroundColor = "black"; */
         //hidding table
         document.querySelector("main").classList.add("close");
 
 
-        document.querySelector("#name").textContent = student.name;
+        document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.substring(0,1)}.png`;
+        document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
+        document.querySelector("#student_ident").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
         document.querySelector("#middle_name").textContent = student.middleName;
-        document.querySelector("#last_name").textContent = student.lastName;
         document.querySelector("#nick_name").textContent = student.nickName;
         document.querySelector("#house").textContent = student.house;
         //querySelector("#ext_curricular").textContent = student.extCurricular;
