@@ -101,6 +101,10 @@ footer {
   margin: 3% auto;
 }
 
+#fil_status {
+  margin-left: 5%;
+}
+
 /* --------TABLE-------- */
 
 table {
@@ -113,8 +117,8 @@ th,
 td,
 .input,
 button {
-  border-bottom: 1.5px solid var(--button1st);
-  border-right: 1.5px solid var(--button1st);
+  border-top: 1.5px solid var(--button1st);
+  border-left: 1.5px solid var(--button1st);
   border-radius: 6px;
 }
 
@@ -144,7 +148,7 @@ input {
 #wraper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15%;
+  gap: 25%;
   margin: 3% 10%;
 }
 #totals,
@@ -206,11 +210,25 @@ main.close {
   color: var(--white);
 }
 
-#body_list.back_griff {
+#body_list.back_griff,
+#body_list.back_slyt,
+#body_list.back_huff,
+#body_list.back_raven {
   height: 100%;
-  background: var(--background) url(./images/Gryffindor.jpg) no-repeat center;
   background-blend-mode: color;
-  background-size: contain;
+  background-size: cover;
+}
+#body_list.back_griff {
+  background: var(--background) url(./images/Gryffindor.jpg) repeat top;
+}
+#body_list.back_slyt {
+  background: var(--background) url(./images/Slytherin.jpg) repeat top;
+}
+#body_list.back_huff {
+  background: var(--background) url(./images/Hufflepuff.jpg) repeat top;
+}
+#body_list.back_raven {
+  background: var(--background) url(./images/Ravenclawn.jpg) repeat top;
 }
 
 /* small tablet styles */

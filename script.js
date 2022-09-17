@@ -23,6 +23,7 @@ function init() {
 function buttons() {
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
     document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+
 }
 
 function loadJson() {
@@ -38,7 +39,6 @@ function loadJson() {
 
 
 function handleJsonData(studentInf) {
-    //console.log(studentInf);
 
     studentInf.forEach(stud => {
         //clean the data for each element
@@ -65,11 +65,13 @@ function handleJsonData(studentInf) {
 
         /* -------------------nick name------------- */
         student.nickName = capitalize(fullN.substring(fullN.indexOf(`"`) + 1, fullN.lastIndexOf(`"`)))
-
+        if (student.nickName === "") {
+            student.nickName = "null";
+        }
         /* -------------------if just one name------------- */
         if (student.name === "") {
             student.name = student.lastName;
-            student.lastName = "";
+            student.lastName = "null";
         }
 
         /* ---------------------student.house--------------- */
@@ -86,10 +88,14 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
 
+/* ------------------------------ // FILTERING // ---------------------------------- */
+
 function selectFilter(event) {
     const filter = event.target.dataset.filter;
     console.log(`user selected ${filter}`);
     filterList(filter);
+    changeBodyBackg(filter);
+    cleanFilButtons(filter);
 }
 
 function filterList(studentHouse) {
@@ -98,26 +104,56 @@ function filterList(studentHouse) {
     if (studentHouse === "gryffindor") {
         filteredList = allStudents.filter(houseG);
         grif.textContent = `There are ${filteredList.length} students in Gryffindor`;
-        document.querySelector("#body_list").classList.add("back_griff");
     } else if (studentHouse === "slytherin") {
         filteredList = allStudents.filter(houseS);
         slyt.textContent = `There are ${filteredList.length} students in Slytherin`
-
     } else if (studentHouse === "hufflepuff") {
         filteredList = allStudents.filter(houseH);
-        huff.textContent = `There are ${filteredList.length} students in Hufflepuff`
-
+        huff.textContent = `There are ${filteredList.length} students in Hufflepuff`;
     } else if (studentHouse === "ravenclaw") {
         filteredList = allStudents.filter(houseR)
-        raven.textContent = `There are ${filteredList.length} students in Ravenclaw`
+        raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
     }
-    document.querySelector("#total_disp").value = `Total Hogwards' Students ${filteredList.length}`;
+    document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
 
     displayNewList(filteredList);
-
 }
 
+function cleanFilButtons(studentHouse) {
+    if (studentHouse === "gryffindor") {
+        slyt.textContent = slyt.value;
+        huff.textContent = huff.value;
+        raven.textContent = raven.value;
+    } else if (studentHouse === "slytherin") {
+        grif.textContent = grif.value;
+        huff.textContent = huff.value;
+        raven.textContent = raven.value;
+    } else if (studentHouse === "hufflepuff") {
+        grif.textContent = grif.value;
+        slyt.textContent = slyt.value;
+        raven.textContent = raven.value;
+    } else if (studentHouse === "ravenclaw") {
+        grif.textContent = grif.value;
+        slyt.textContent = slyt.value;
+        huff.textContent = huff.value;
+    }
+}
 
+function changeBodyBackg(studentHouse) {
+    let body = document.querySelector("#body_list");
+    if (studentHouse === "gryffindor") {
+        body.classList.add("back_griff");
+    } else if (studentHouse === "slytherin") {
+        body.classList = " ";
+        body.classList.add("back_slyt");
+    } else if (studentHouse === "hufflepuff") {
+        body.classList = " ";
+        body.classList.add("back_huff");
+    } else if (studentHouse === "ravenclaw") {
+        body.classList = " ";
+        body.classList.add("back_raven");
+    }
+}
 
 function houseG(student) {
     return student.house === "Gryffindor";
@@ -135,6 +171,81 @@ function houseR(student) {
     return student.house === "Ravenclaw";
 }
 
+/* ------------------------------ // SORTING // ---------------------------------- */
+
+function selectSort(event) {
+    let sortBy = event.target.dataset.sort;
+    console.log(`user selected ${sortBy}`);
+    sortList(sortBy);
+}
+
+function sortList(sortBy) {
+    let sortedList = allStudents;
+
+    if (sortBy === "name") {
+        sortedList.sort(sortByName);
+    } else if (sortBy === "middle_name") {
+        sortedList.sort(sortByMiddleName);
+    } else if (sortBy === "last_name") {
+        sortedList.sort(sortByLastName);
+    } else if (sortBy === "house") {
+        sortedList.sort(sortByHouse);
+    } else if (sortBy === "extCurricular") {
+        sortedList.sort(sortByextCurricular);
+    } else if (sortBy === "nick_name") {
+        sortedList.sort(sortByNick);
+    }
+
+    displayNewList(sortedList);
+}
+
+function sortByName(studentA, studentB) {
+    if (studentA.name < studentB.name) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function sortByMiddleName(studentA, studentB) {
+    if (studentA.middleName < studentB.middleName) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function sortByLastName(studentA, studentB) {
+    if (studentA.lastName < studentB.lastName) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function sortByHouse(studentA, studentB) {
+    if (studentA.house < studentB.house) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function sortByNick(studentA, studentB) {
+    if (studentA.nickName < studentB.nickName) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function sortByExtCurricular(studentA, studentB) {
+    if (studentA.extCurricular < studentB.extCurricular) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
 
 function displayNewList(students) {
 

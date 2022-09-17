@@ -22,34 +22,37 @@
             </div>
 
             <div id="houses">
-                <button class="input" data-action="filter" data-filter="gryffindor" id="grif">Students in
+                <button class="input" data-action="filter" data-filter="gryffindor" id="grif" value="Students in
+                Gryffindor">Students in
                     Gryffindor</button>
-                <button class="input" data-action="filter" data-filter="slytherin" id="slyt">Students in
+                <button class="input" data-action="filter" data-filter="slytherin" id="slyt" value="Students in
+                Slytherin">Students in
                     Slytherin</button>
-                <button class="input" data-action="filter" data-filter="hufflepuff" id="huff">Students in
+                <button class="input" data-action="filter" data-filter="hufflepuff" id="huff" value="Students in
+                Hufflepuff">Students in
                     Hufflepuff</button>
-                <button class="input" data-action="filter" data-filter="ravenclaw" id="raven">Students in
+                <button class="input" data-action="filter" data-filter="ravenclaw" id="raven" value="Students in
+                Ravenclaw">Students in
                     Ravenclaw</button>
             </div>
         </div>
 
-        <p>
-            Filter:
+        <div id="fil_status">
             <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
             <button class="filter" data-action="filter" data-filter="inq_squad">Inquisitorial Squad</button>
             <button class="filter" data-action="filter" data-filter="exp-studenst">Expelled Students</button>
             <button class="filter" data-action="filter" data-filter="*">All Students</button>
-        </p>
+        </div>
 
         <table id="list">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Nickname</th>
-                    <th>House</th>
-                    <th>Extra Curricular</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="name">Name</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="middle_name">Middle Name</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="last_name">Last Name</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="nick_name">Nickname</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="ext_curricular">Extra Curricular</th>
                 </tr>
             </thead>
 
