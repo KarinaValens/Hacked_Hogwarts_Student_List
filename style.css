@@ -144,6 +144,11 @@ input {
   padding: 1%;
 }
 
+#search {
+  background: url(./images/search-normal.png) no-repeat right;
+  background-size: 13%;
+}
+
 /*-------------------- // TOTALS // ---------------*/
 #wraper {
   display: grid;
@@ -210,6 +215,7 @@ main.close {
   color: var(--white);
 }
 
+/* --------------------------- // Changing Background// ----------------- */
 #body_list.back_griff,
 #body_list.back_slyt,
 #body_list.back_huff,
@@ -229,6 +235,9 @@ main.close {
 }
 #body_list.back_raven {
   background: var(--background) url(./images/Ravenclawn.jpg) repeat top;
+}
+tr.hidde {
+  display: none;
 }
 
 /* small tablet styles */

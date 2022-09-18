@@ -18,6 +18,8 @@ function init() {
 
     loadJson();
     buttons();
+    search();
+
 }
 
 function buttons() {
@@ -35,8 +37,6 @@ function loadJson() {
             handleJsonData(studentData); //assign the data as a parameter
         });
 }
-
-
 
 function handleJsonData(studentInf) {
 
@@ -77,9 +77,10 @@ function handleJsonData(studentInf) {
         /* ---------------------student.house--------------- */
         student.house = capitalize(stud.house.trim());
 
-        /* -------------------  //TOTALS// ----------------- */
-        return allStudents.push(student); //adding a student to the allStudents array of object at the beginning of the script
+        //adding a student to the allStudents array of object at the beginning of the script
+        return allStudents.push(student);
     });
+    getTotal();
     displayNewList(allStudents);
 }
 
@@ -114,8 +115,8 @@ function filterList(studentHouse) {
         filteredList = allStudents.filter(houseR)
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
     }
-    document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
 
+    document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
     displayNewList(filteredList);
 }
 
@@ -139,17 +140,17 @@ function cleanFilButtons(studentHouse) {
     }
 }
 
-function changeBodyBackg(studentHouse) {
+function changeBodyBackg(house) {
     let body = document.querySelector("#body_list");
-    if (studentHouse === "gryffindor") {
+    if (house === "gryffindor") {
         body.classList.add("back_griff");
-    } else if (studentHouse === "slytherin") {
+    } else if (house === "slytherin") {
         body.classList = " ";
         body.classList.add("back_slyt");
-    } else if (studentHouse === "hufflepuff") {
+    } else if (house === "hufflepuff") {
         body.classList = " ";
         body.classList.add("back_huff");
-    } else if (studentHouse === "ravenclaw") {
+    } else if (house === "ravenclaw") {
         body.classList = " ";
         body.classList.add("back_raven");
     }
@@ -174,78 +175,66 @@ function houseR(student) {
 /* ------------------------------ // SORTING // ---------------------------------- */
 
 function selectSort(event) {
-    let sortBy = event.target.dataset.sort;
-    console.log(`user selected ${sortBy}`);
-    sortList(sortBy);
+    const sortBy = event.target.dataset.sort;
+    const sortDir = event.target.dataset.sortDiretion;
+    if (sortDir === "asc") {
+        event.target.dataset.sortDiretion = "desc"
+    } else {
+        event.target.dataset.sortDiretion = "asc"
+
+    }
+    //console.log(`user selected ${sortBy}`);
+    sortList(sortBy, sortDir);
 }
 
-function sortList(sortBy) {
+function sortList(sortBy, sortDir) {
     let sortedList = allStudents;
+    let direct = 1;
 
-    if (sortBy === "name") {
-        sortedList.sort(sortByName);
-    } else if (sortBy === "middle_name") {
-        sortedList.sort(sortByMiddleName);
-    } else if (sortBy === "last_name") {
-        sortedList.sort(sortByLastName);
-    } else if (sortBy === "house") {
-        sortedList.sort(sortByHouse);
-    } else if (sortBy === "extCurricular") {
-        sortedList.sort(sortByextCurricular);
-    } else if (sortBy === "nick_name") {
-        sortedList.sort(sortByNick);
+    if (sortDir === "desc") {
+        direct = -1;
+    } else {
+        direct = 1;
     }
+    sortedList = sortedList.sort(sortByProperty);
 
+    function sortByProperty(studentA, studentB) {
+        if (studentA[sortBy] < studentB[sortBy]) {
+            return -1 * direct;
+        } else {
+            return 1 * direct;
+        }
+    }
     displayNewList(sortedList);
 }
 
-function sortByName(studentA, studentB) {
-    if (studentA.name < studentB.name) {
-        return -1;
-    } else {
-        return 1;
-    }
+/* ------------------------------ // SEARCH // ---------------------------------- */
+
+function search() {
+    // Declare variables
+    const searchInput = document.querySelector("[data-search]");
+
+    //getting the input from the field
+    searchInput.addEventListener("keyup", (event) => {
+
+        let searchVal = event.target.value;
+
+        const searchFilt = allStudents.filter(student => {
+            return student.name.includes(searchVal) || student.lastName.includes(searchVal);
+
+        })
+        displayNewList(searchFilt);
+    })
+
+}
+/* ------------------------------------- //TOTALS//-------------------------------- */
+
+function getTotal() {
+    document.querySelector("#total").value = `Total of Hogwards' students ${allStudents.length+1}`;
 }
 
-function sortByMiddleName(studentA, studentB) {
-    if (studentA.middleName < studentB.middleName) {
-        return -1;
-    } else {
-        return 1;
-    }
-}
+/* ------------------------------ // DISPLAY THE NEW VIEW // ---------------------------------- */
 
-function sortByLastName(studentA, studentB) {
-    if (studentA.lastName < studentB.lastName) {
-        return -1;
-    } else {
-        return 1;
-    }
-}
-
-function sortByHouse(studentA, studentB) {
-    if (studentA.house < studentB.house) {
-        return -1;
-    } else {
-        return 1;
-    }
-}
-
-function sortByNick(studentA, studentB) {
-    if (studentA.nickName < studentB.nickName) {
-        return -1;
-    } else {
-        return 1;
-    }
-}
-
-function sortByExtCurricular(studentA, studentB) {
-    if (studentA.extCurricular < studentB.extCurricular) {
-        return -1;
-    } else {
-        return 1;
-    }
-}
 
 function displayNewList(students) {
 
@@ -275,25 +264,33 @@ function displayStudent(student) {
         //open pop-up
         document.querySelector("#pop_up").classList.add("open");
         document.querySelector("#close_pop").classList.add("open");
-        /* //changing body background color
-        document.querySelector("body").style.backgroundColor = "black"; */
         //hidding table
         document.querySelector("main").classList.add("close");
 
-
-        document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.substring(0,1)}.png`;
+        //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
+        document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
         document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
         document.querySelector("#student_ident").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
         document.querySelector("#middle_name").textContent = student.middleName;
         document.querySelector("#nick_name").textContent = student.nickName;
         document.querySelector("#house").textContent = student.house;
+
+        //changing body background 
+        //HOW TO CALL THE FUNCTION CHANGE BACKGROUND INSIDE THE CLONE?
+        if (student.house === "Gryffindor") {
+            document.querySelector("#body_list").classList.add("back_griff");
+        } else if (student.house === "Slytherin") {
+            document.querySelector("#body_list").classList.add("back_slyt");
+
+        } else if (student.house === "Hufflepuff") {
+            document.querySelector("#body_list").classList.add("back_huff");
+        } else if (student.house === "Ravenclaw") {
+            document.querySelector("#body_list").classList.add("back_raven");
+        }
         //querySelector("#ext_curricular").textContent = student.extCurricular;
         //document.querySelector("#pic").textContent = student.pic;
     });
 
-
-    /* -------- //TOTALS//-------- */
-    document.querySelector("#total").value = `Total Hogwards' Students ${allStudents.length+1}`;
 
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");
