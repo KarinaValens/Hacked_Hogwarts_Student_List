@@ -14,6 +14,13 @@ const Student = {
     house: " ",
 }
 
+const settings = {
+    filterBy: "all",
+    sortBy: "name",
+    sortDir: "asc"
+}
+
+
 function init() {
 
     loadJson();
@@ -94,30 +101,36 @@ function capitalize(str) {
 function selectFilter(event) {
     const filter = event.target.dataset.filter;
     console.log(`user selected ${filter}`);
-    filterList(filter);
+    //filterList(filter);
+    setFilter(filter);
     changeBodyBackg(filter);
     cleanFilButtons(filter);
 }
 
-function filterList(studentHouse) {
-    let filteredList = allStudents;
+function setFilter(filter) {
+    settings.filterBy = filter;
+    buildtList();
+}
 
-    if (studentHouse === "gryffindor") {
+function filterList(filteredList) {
+    //let filteredList = allStudents;
+
+    if (settings.filterBy === "gryffindor") {
         filteredList = allStudents.filter(houseG);
         grif.textContent = `There are ${filteredList.length} students in Gryffindor`;
-    } else if (studentHouse === "slytherin") {
+    } else if (settings.filterBy === "slytherin") {
         filteredList = allStudents.filter(houseS);
         slyt.textContent = `There are ${filteredList.length} students in Slytherin`
-    } else if (studentHouse === "hufflepuff") {
+    } else if (settings.filterBy === "hufflepuff") {
         filteredList = allStudents.filter(houseH);
         huff.textContent = `There are ${filteredList.length} students in Hufflepuff`;
-    } else if (studentHouse === "ravenclaw") {
+    } else if (settings.filterBy === "ravenclaw") {
         filteredList = allStudents.filter(houseR)
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
     }
 
     document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
-    displayNewList(filteredList);
+    return filteredList;
 }
 
 function cleanFilButtons(studentHouse) {
@@ -143,6 +156,7 @@ function cleanFilButtons(studentHouse) {
 function changeBodyBackg(house) {
     let body = document.querySelector("#body_list");
     if (house === "gryffindor") {
+        body.classList = " ";
         body.classList.add("back_griff");
     } else if (house === "slytherin") {
         body.classList = " ";
@@ -177,34 +191,46 @@ function houseR(student) {
 function selectSort(event) {
     const sortBy = event.target.dataset.sort;
     const sortDir = event.target.dataset.sortDiretion;
+    //toggle direction (sorting in both direction)
     if (sortDir === "asc") {
         event.target.dataset.sortDiretion = "desc"
     } else {
         event.target.dataset.sortDiretion = "asc"
-
     }
     //console.log(`user selected ${sortBy}`);
-    sortList(sortBy, sortDir);
+    setSort(sortBy, sortDir);
 }
 
-function sortList(sortBy, sortDir) {
-    let sortedList = allStudents;
-    let direct = 1;
+function setSort(sortBy, sortDir) {
+    settings.sortBy = sortBy;
+    settings.sortDir = sortDir;
+    buildtList();
+}
 
-    if (sortDir === "desc") {
+function sortList(sortedList) {
+    //let sortedList = allStudents;
+    let direct = 1;
+    //toggle the direction multiplying it to the const to change the direction value
+    if (settings.sortDir === "desc") {
         direct = -1;
     } else {
-        direct = 1;
+        settings.direct = 1;
     }
     sortedList = sortedList.sort(sortByProperty);
-
+    // using closure so we can have access to th sortBy property using the sortByProperty function inside the sortList funct
     function sortByProperty(studentA, studentB) {
-        if (studentA[sortBy] < studentB[sortBy]) {
+        if (studentA[settings.sortBy] < studentB[settings.sortBy]) { // sortBy is not a property of the object we can access it in brackets []
             return -1 * direct;
         } else {
             return 1 * direct;
         }
     }
+    return sortedList;
+}
+
+function buildtList() {
+    const currentList = filterList(allStudents);
+    const sortedList = sortList(currentList);
     displayNewList(sortedList);
 }
 
