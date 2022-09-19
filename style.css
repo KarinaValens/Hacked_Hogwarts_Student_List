@@ -239,6 +239,18 @@ main.close {
 tr.hidde {
   display: none;
 }
+th.sortBy {
+  background: linear-gradient(120deg, rgba(180, 180, 200.1), rgba(255, 255, 255, 0));
+}
+
+th.sortBy[data-sort-direction="asc"]::after {
+  content: "⇩";
+  padding-left: 4px;
+}
+th.sortBy[data-sort-direction="desc"]::after {
+  content: "⇧";
+  padding-left: 4px;
+}
 
 /* small tablet styles */
 @media screen and (min-width: 620px) {

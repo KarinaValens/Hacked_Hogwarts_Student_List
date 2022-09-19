@@ -12,12 +12,13 @@ const Student = {
     nickName: " ",
     photo: " ",
     house: " ",
+    enrole: true,
 }
 
 const settings = {
     filterBy: "all",
     sortBy: "name",
-    sortDir: "asc"
+    sortDir: "asc",
 }
 
 
@@ -62,23 +63,23 @@ function handleJsonData(studentInf) {
         }
 
         /* -------------------middle-name------------- */
-
         student.middleName = capitalize(fullN.substring(fullN.indexOf(" ") + 1, fullN.lastIndexOf(" ") + 1));
         if (student.middleName.length < 1) {
-            student.middleName = "null";
+            student.middleName = "-";
         } else if (student.middleName.includes(`"`)) {
-            student.middleName = "null";
+            student.middleName = "-";
         }
 
         /* -------------------nick name------------- */
         student.nickName = capitalize(fullN.substring(fullN.indexOf(`"`) + 1, fullN.lastIndexOf(`"`)))
         if (student.nickName === "") {
-            student.nickName = "null";
+            student.nickName = "-";
         }
+
         /* -------------------if just one name------------- */
         if (student.name === "") {
             student.name = student.lastName;
-            student.lastName = "null";
+            student.lastName = "-";
         }
 
         /* ---------------------student.house--------------- */
@@ -88,7 +89,8 @@ function handleJsonData(studentInf) {
         return allStudents.push(student);
     });
     getTotal();
-    displayNewList(allStudents);
+    //displayNewList(allStudents);
+    buildtList(allStudents);
 }
 
 function capitalize(str) {
@@ -113,8 +115,6 @@ function setFilter(filter) {
 }
 
 function filterList(filteredList) {
-    //let filteredList = allStudents;
-
     if (settings.filterBy === "gryffindor") {
         filteredList = allStudents.filter(houseG);
         grif.textContent = `There are ${filteredList.length} students in Gryffindor`;
@@ -191,13 +191,14 @@ function houseR(student) {
 function selectSort(event) {
     const sortBy = event.target.dataset.sort;
     const sortDir = event.target.dataset.sortDiretion;
+    console.log(sortDir);
 
     //find old sort element
-    const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
-    oldElement.classList.remove("sortBy");
+    const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`); //the sort that was already choosen
+    oldElement.classList.remove("sortBy"); //removing the class sortBy
 
     //indicate active sort
-    event.target.classList.add("sortBy")
+    event.target.classList.add("sortBy"); //adding the class sortBy to the new choosen option
 
     //toggle direction (sorting in both direction)
     if (sortDir === "asc") {
@@ -205,7 +206,7 @@ function selectSort(event) {
     } else {
         event.target.dataset.sortDiretion = "asc"
     }
-    //console.log(`user selected ${sortBy}`);
+    console.log(`user selected ${sortBy} ${sortDir}`);
     setSort(sortBy, sortDir);
 }
 
@@ -216,13 +217,12 @@ function setSort(sortBy, sortDir) {
 }
 
 function sortList(sortedList) {
-    //let sortedList = allStudents;
     let direct = 1;
     //toggle the direction multiplying it to the const to change the direction value
     if (settings.sortDir === "desc") {
         direct = -1;
     } else {
-        settings.direct = 1;
+        direct = 1;
     }
     sortedList = sortedList.sort(sortByProperty);
     // using closure so we can have access to th sortBy property using the sortByProperty function inside the sortList funct
@@ -292,9 +292,26 @@ function displayStudent(student) {
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
     clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular;
+    if (student.enrole === true) {
+        clone.querySelector("[data-field=enrole]").textContent = "✔️";
+    } else {
+        clone.querySelector("[data-field=enrole]").textContent = "❌";
+    }
+
+    clone.querySelector("[data-field=enrole]").addEventListener("click", expelStudent);
+
+    function expelStudent() {
+        if (student.enrole === true) {
+            student.enrole = false;
+        } else {
+            student.enrole = true;
+        }
+        buildtList(); //this make the list sort with the first click, is it a way to solve it?
+    }
+
 
     /* ----------- //POP-UP// ---------------- */
-    clone.querySelector("tr").addEventListener("click", (event) => {
+    clone.querySelector(".pop").addEventListener("click", (event) => {
         //open pop-up
         document.querySelector("#pop_up").classList.add("open");
         document.querySelector("#close_pop").classList.add("open");

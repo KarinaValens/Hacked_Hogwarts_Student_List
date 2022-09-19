@@ -2,12 +2,13 @@
         a.- list: DONE
         b.- modal display for a single student: DONE
         c.- interactions
-            i.-   expelling a student
+            i.-   expelling a student: WORKING ON IT
             ii.-  addign a prefect
             iii.- addign an aditional prefect
             iv.-  been prevented to add a thrid prefect
             v.-   making a student member of the inquisitorial squad
             vi.-  getting nofified that a student can not be a member
+The fir
 
 2.- Activity Diagram for user interactions  (simulate the interaction to be sure it works)
 3.- Detailled function activity diagram
