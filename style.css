@@ -93,6 +93,7 @@ footer {
   background: var(--background) url(./images/rithika-gopalakrishnan-JK0l2xvN1fY-unsplash.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
+  overflow-x: hidden;
 }
 
 #subt {
@@ -243,6 +244,7 @@ th.sortBy {
   background: linear-gradient(120deg, rgba(180, 180, 200.1), rgba(255, 255, 255, 0));
 }
 
+/* ----------------------- //arrow directions// ------------------------------ */
 th.sortBy[data-sort-direction="asc"]::after {
   content: "⇩";
   padding-left: 4px;
@@ -252,6 +254,14 @@ th.sortBy[data-sort-direction="desc"]::after {
   padding-left: 4px;
 }
 
+/* ----------------------- //visual feedback from expelling students // ------------------------------ */
+
+.animation {
+  transform: translateX(100vw);
+  transition: transform 2s linear;
+}
+
+/* responsiveness way too ambitious!!!! */
 /* small tablet styles */
 @media screen and (min-width: 620px) {
 }

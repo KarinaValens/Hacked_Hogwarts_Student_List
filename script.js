@@ -87,8 +87,8 @@ function handleJsonData(studentInf) {
         return allStudents.push(student);
     });
     getTotal();
-    buildtList(allStudents);
-
+    //buildtList(allStudents);
+    displayNewList(allStudents);
 }
 
 function capitalize(str) {
@@ -126,8 +126,16 @@ function filterList(filteredList) {
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
     } else if (settings.filterBy === "exp-studenst") {
         filteredList = expelledStudent;
+        document.querySelector("#studentStatus").textContent = "Expeled";
+        expStud.textContent = `${filteredList.length} students expelled `;
+    } else if (settings.filterBy === "*") {
+        filteredList = allStudents;
+        document.querySelector("#studentStatus").textContent = "Enrole";
+        expStud.textContent = `Expelled Students`;
+
     }
     document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
+
     return filteredList;
 }
 
@@ -150,6 +158,11 @@ function cleanFilButtons(studentHouse) {
         grif.textContent = grif.value;
         slyt.textContent = slyt.value;
         huff.textContent = huff.value;
+    } else {
+        grif.textContent = grif.value;
+        slyt.textContent = slyt.value;
+        huff.textContent = huff.value;
+        raven.textContent = raven.value;
     }
 }
 
@@ -167,7 +180,10 @@ function changeBodyBackg(house) {
     } else if (house === "ravenclaw") {
         body.classList = " ";
         body.classList.add("back_raven");
+    } else {
+        body.classList = " ";
     }
+
 }
 
 function houseG(student) {
@@ -303,7 +319,6 @@ function displayStudent(student) {
     clone.querySelector("[data-field=enrole]").addEventListener("click", expellStudent);
 
     function expellStudent() {
-
         if (student.enrole === true) {
             student.enrole = false;
             expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);

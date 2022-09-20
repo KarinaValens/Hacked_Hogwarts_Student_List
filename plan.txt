@@ -62,7 +62,9 @@
 
 
 expelled student plan
-- if the student.enrole=false=> slice, splice or pop the student from the allStudents 
+No new functions it is build in the clone and display in the filterList
+- if the student.enrole=false=> splice the student from the allStudents 
 - and push the student into the expelled list
-
 - build the expelled list with the expell button
+making visual feedback of the expelle
+- add animation transform translate (in the expelled estudent function)
