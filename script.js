@@ -4,7 +4,21 @@ document.addEventListener("DOMContentLoaded", init);
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 let allStudents = [];
-let expelledStudent = [];
+let expelledStudent = [
+    /* {
+        name: 'Anthony',
+        lastName: 'Goldstein',
+        middleName: '-',
+        nickName: '-',
+        house: 'Ravenclaw'
+    }, {
+        name: 'Blaise',
+        lastName: 'Zabini',
+        middleName: '-',
+        nickName: '-',
+        house: 'Slytherin'
+    } */
+];
 //prototype
 const Student = {
     name: " ",
@@ -132,7 +146,7 @@ function filterList(filteredList) {
         filteredList = allStudents.filter(houseR)
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
     } else if (settings.filterBy === "exp-studenst") {
-        // filteredList = expelledStudent;
+        filteredList = expelledStudent;
         console.log("EXPELLED expelledStudent", expelledStudent);
     }
     //console.log("FILTER LIST")
@@ -246,10 +260,12 @@ function sortList(sortedList) {
 }
 
 function buildtList() {
-    console.log("BUILD LIST");
     const currentList = filterList(allStudents);
+    console.log("BUILD LIST", currentList);
     const sortedList = sortList(currentList);
     displayNewList(sortedList);
+
+
 }
 
 /* ------------------------------ // SEARCH // ---------------------------------- */
@@ -308,9 +324,8 @@ function displayStudent(student) {
         clone.querySelector("[data-field=enrole]").textContent = "✔️";
     } else {
         console.log("EXPEL")
-        expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
+        console.log("EEEExpelledStudent", expelledStudent)
         clone.querySelector("[data-field=enrole]").textContent = "❌";
-
         buildtList();
     }
 
@@ -319,10 +334,9 @@ function displayStudent(student) {
     function expelStudent() {
         console.log("expelStudent klik");
         if (student.enrole === true) {
+            expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
             student.enrole = false;
-            buildtList(); //this make the list sort with the first click, is it a way to solve it?
-        } else {
-            student.enrole = true;
+            buildtList();
         }
     }
 
