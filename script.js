@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 let allStudents = [];
+let expelledStudent = [];
 //prototype
 const Student = {
     name: " ",
@@ -23,17 +24,15 @@ const settings = {
 
 
 function init() {
-
     loadJson();
     buttons();
     search();
-
 }
 
 function buttons() {
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
     document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
-
+    // document.querySelector("[data-action='exp']").addEventListener("click", expelKlik)
 }
 
 function loadJson() {
@@ -89,7 +88,6 @@ function handleJsonData(studentInf) {
         return allStudents.push(student);
     });
     getTotal();
-    //displayNewList(allStudents);
     buildtList(allStudents);
 }
 
@@ -97,6 +95,12 @@ function capitalize(str) {
     //charAt is character at index 0 to select the index 0 instid of substring(0,something) 
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
+/**EXPEL**/
+/* function expelKlik() {
+    console.log("EXPEL KLIK")
+    displayNewList(expelledStudent);
+} */
+
 
 /* ------------------------------ // FILTERING // ---------------------------------- */
 
@@ -105,7 +109,7 @@ function selectFilter(event) {
     console.log(`user selected ${filter}`);
     //filterList(filter);
     setFilter(filter);
-    changeBodyBackg(filter);
+    changeBodyBackg(filter); //chage the background with the shield(escudo) of each house
     cleanFilButtons(filter);
 }
 
@@ -127,11 +131,16 @@ function filterList(filteredList) {
     } else if (settings.filterBy === "ravenclaw") {
         filteredList = allStudents.filter(houseR)
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
+    } else if (settings.filterBy === "exp-studenst") {
+        // filteredList = expelledStudent;
+        console.log("EXPELLED expelledStudent", expelledStudent);
     }
-
+    //console.log("FILTER LIST")
     document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
     return filteredList;
 }
+
+
 
 function cleanFilButtons(studentHouse) {
     if (studentHouse === "gryffindor") {
@@ -190,7 +199,7 @@ function houseR(student) {
 
 function selectSort(event) {
     const sortBy = event.target.dataset.sort;
-    const sortDir = event.target.dataset.sortDiretion;
+    const sortDir = event.target.dataset.sortDirection;
     console.log(sortDir);
 
     //find old sort element
@@ -202,9 +211,9 @@ function selectSort(event) {
 
     //toggle direction (sorting in both direction)
     if (sortDir === "asc") {
-        event.target.dataset.sortDiretion = "desc"
+        event.target.dataset.sortDirection = "desc"
     } else {
-        event.target.dataset.sortDiretion = "asc"
+        event.target.dataset.sortDirection = "asc"
     }
     console.log(`user selected ${sortBy} ${sortDir}`);
     setSort(sortBy, sortDir);
@@ -237,6 +246,7 @@ function sortList(sortedList) {
 }
 
 function buildtList() {
+    console.log("BUILD LIST");
     const currentList = filterList(allStudents);
     const sortedList = sortList(currentList);
     displayNewList(sortedList);
@@ -292,23 +302,29 @@ function displayStudent(student) {
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
     clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular;
+
+    // console.log("student.enrole", student.enrole)
     if (student.enrole === true) {
         clone.querySelector("[data-field=enrole]").textContent = "✔️";
     } else {
+        console.log("EXPEL")
+        expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
         clone.querySelector("[data-field=enrole]").textContent = "❌";
+
+        buildtList();
     }
 
     clone.querySelector("[data-field=enrole]").addEventListener("click", expelStudent);
 
     function expelStudent() {
+        console.log("expelStudent klik");
         if (student.enrole === true) {
             student.enrole = false;
+            buildtList(); //this make the list sort with the first click, is it a way to solve it?
         } else {
             student.enrole = true;
         }
-        buildtList(); //this make the list sort with the first click, is it a way to solve it?
     }
-
 
     /* ----------- //POP-UP// ---------------- */
     clone.querySelector(".pop").addEventListener("click", (event) => {

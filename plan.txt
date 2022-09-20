@@ -1,27 +1,68 @@
-1.- Wire frame sketch with buttons and "popups"
-        a.- list: DONE
-        b.- modal display for a single student: DONE
-        c.- interactions
-            i.-   expelling a student: WORKING ON IT
-            ii.-  addign a prefect
-            iii.- addign an aditional prefect
-            iv.-  been prevented to add a thrid prefect
-            v.-   making a student member of the inquisitorial squad
-            vi.-  getting nofified that a student can not be a member
-The fir
+1.- Wireframes DONE
+2.- Prototype DONE
+3.- Clean the data DONE (start from the end)
+        1.- html mark-up 
+        2.- style css (bulding alone the way) 
+        3.- javaScript
+            a.- getting the json data.
+                - on dom load => funct.init  that calls the funct.loadJson.
+                - funct.loadJson => request the data and return it in json format. Call funct.handle data.
+            b.- funct.handleData => 
+                i. forEach.obj from the json data 
+                        - create a new object
+                ii. clean the data for the new object
+                iii. assign names, variables to each part of the data to be displayed
+                iv. separate the strings
+                v. capitalize strings => called-back funct.capitalize
+                vi. forEach.obj return/push new object with the cleaned data
+                vii. call-back funct.displayNewList
+            c.- funct.capitalize => capitalize all the first letter in the target string
+            c.- funct.displayNewList => forEach.student => funct.displayStudent.
+            d.- funct.displayStudent => - select the template
+                                        - make a clone
+                                        - populate data => call-back closure.funct.pop-up=> extendent student information
+                                        - select a parent element in the dom
+                                        - append the new dom child into the parent element
+            filtering-process
+            e. funct.filterList => - started just appliying filter functions one by one 
+                                    - later on put them together in this function with if statements
+                                    - forEach house built up functions that show the students in that house
+                                    - modifyes the filter by house button.output for each house
+                                    - return a new filtered array 
+                                    - calls-back a filtered funct.displayNewList. 
+               adding user interactivity  
 
-2.- Activity Diagram for user interactions  (simulate the interaction to be sure it works)
-3.- Detailled function activity diagram
-        a.- Overview of all the functions we are going to need
-        b.- Divided the functions into components
+            f. funct.buttons    =>   - set eventListener in the buttons to filter, this buttos call-back the funct.select.Filter
+                       
+            g. funct.selectFilter=> set the event target as a filter and return it
+                                    - calls-back funct.filterList 
+                                    - calls-back funct.changeBacground adding classes to thr body tag 
+                                    - calls-back funct.cleanButtonsFilter
+            h. funct.houses(4functions each for each house) if the filter (the target event) is ===to a house returns students just for that house
+            i. funct.changeBacground adding classes to the body tag 
+            i. funct.cleanButtonsFilter clean the classes from the filtering bottons.
 
-4.- A list or drawing of the main components of the system (the epics onthe story map)
+            sorting process
+            j. funct.sortList =>    - started just appliying sort functions one by one 
+                                    - later on put them together in this function with if statements
+                                    - return the array sorting "asc". 
+                                    - toggle the direction with if statement return 1 and -1.
+                                    - calls-back a sorted funct.displayNewList. 
+            k. functions.sortbyX    - forEach house built up functions that show the students sorted byX
 
-5.- A can/ cant list or drawing of the activity diagram about how to implement them at the moment of the design
-        a.- I think I know
-        b.- I think I dont know
-        c.- I dont know
+            adding user interactivity
+            l. funct.buttons    =>   - set eventListener in the buttons to sort, this buttos call-back the funct.select.Sort
+            m. funct.selectSort =>   - funct.selectSort => set the event target as a filter and return it
+                                     - calls-back funct.sortList 
 
 
+                                    refactoring sorting functions
+                                     - move the funct.sortBy(X) into the funct.sortList for closure 
+                                     - change the sortByX to [array.sortByProperty]
 
 
+expelled student plan
+- if the student.enrole=false=> slice, splice or pop the student from the allStudents 
+- and push the student into the expelled list
+
+- build the expelled list with the expell button
