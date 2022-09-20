@@ -32,7 +32,6 @@ function init() {
 function buttons() {
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
     document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
-    // document.querySelector("[data-action='exp']").addEventListener("click", expelKlik)
 }
 
 function loadJson() {
@@ -89,19 +88,13 @@ function handleJsonData(studentInf) {
     });
     getTotal();
     buildtList(allStudents);
+
 }
 
 function capitalize(str) {
     //charAt is character at index 0 to select the index 0 instid of substring(0,something) 
     return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 }
-/**EXPEL**/
-/* function expelKlik() {
-    console.log("EXPEL KLIK")
-    displayNewList(expelledStudent);
-} */
-
-
 /* ------------------------------ // FILTERING // ---------------------------------- */
 
 function selectFilter(event) {
@@ -133,9 +126,7 @@ function filterList(filteredList) {
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
     } else if (settings.filterBy === "exp-studenst") {
         filteredList = expelledStudent;
-        console.log("EXPELLED expelledStudent", expelledStudent);
     }
-    //console.log("FILTER LIST")
     document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
     return filteredList;
 }
@@ -200,7 +191,7 @@ function houseR(student) {
 function selectSort(event) {
     const sortBy = event.target.dataset.sort;
     const sortDir = event.target.dataset.sortDirection;
-    console.log(sortDir);
+    //console.log(sortDir);
 
     //find old sort element
     const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`); //the sort that was already choosen
@@ -247,11 +238,8 @@ function sortList(sortedList) {
 
 function buildtList() {
     const currentList = filterList(allStudents);
-    console.log("BUILD LIST", currentList);
     const sortedList = sortList(currentList);
     displayNewList(sortedList);
-
-
 }
 
 /* ------------------------------ // SEARCH // ---------------------------------- */
@@ -312,14 +300,21 @@ function displayStudent(student) {
         clone.querySelector("[data-field=enrole]").textContent = "❌";
     }
 
-    clone.querySelector("[data-field=enrole]").addEventListener("click", expelStudent);
+    clone.querySelector("[data-field=enrole]").addEventListener("click", expellStudent);
 
-    function expelStudent() {
+    function expellStudent() {
+
         if (student.enrole === true) {
-            expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
             student.enrole = false;
+            expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
+
+            //THIS ANIMATION WORKS JUST WHEN THERE IS A MISTAKE IN THE NEXT LINE
+            this.parentElement.classList.add("animation");
+            console.log(thi.parent);
+
             buildtList();
         }
+
     }
 
     /* ----------- //POP-UP// ---------------- */
@@ -338,6 +333,12 @@ function displayStudent(student) {
         document.querySelector("#nick_name").textContent = student.nickName;
         document.querySelector("#house").textContent = student.house;
 
+        if (student.enrole === true) {
+            document.querySelector("#expelled").textContent = "✔️ Enroled";
+        } else {
+            document.querySelector("#expelled").textContent = "❌ Expelled";
+        }
+
         //changing body background 
         //HOW TO CALL THE FUNCTION CHANGE BACKGROUND INSIDE THE CLONE?
         if (student.house === "Gryffindor") {
@@ -353,7 +354,6 @@ function displayStudent(student) {
         //querySelector("#ext_curricular").textContent = student.extCurricular;
         //document.querySelector("#pic").textContent = student.pic;
     });
-
 
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");
