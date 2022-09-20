@@ -4,21 +4,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 let allStudents = [];
-let expelledStudent = [
-    /* {
-        name: 'Anthony',
-        lastName: 'Goldstein',
-        middleName: '-',
-        nickName: '-',
-        house: 'Ravenclaw'
-    }, {
-        name: 'Blaise',
-        lastName: 'Zabini',
-        middleName: '-',
-        nickName: '-',
-        house: 'Slytherin'
-    } */
-];
+let expelledStudent = [];
 //prototype
 const Student = {
     name: " ",
@@ -323,16 +309,12 @@ function displayStudent(student) {
     if (student.enrole === true) {
         clone.querySelector("[data-field=enrole]").textContent = "✔️";
     } else {
-        console.log("EXPEL")
-        console.log("EEEExpelledStudent", expelledStudent)
         clone.querySelector("[data-field=enrole]").textContent = "❌";
-        buildtList();
     }
 
     clone.querySelector("[data-field=enrole]").addEventListener("click", expelStudent);
 
     function expelStudent() {
-        console.log("expelStudent klik");
         if (student.enrole === true) {
             expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
             student.enrole = false;
