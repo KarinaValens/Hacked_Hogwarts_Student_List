@@ -39,19 +39,18 @@ dl {
 /* fonts */
 @import url("https://fonts.googleapis.com/css2?family=Aladin&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap");
 
+/* --------------------------------- Home Page --------------------- */
+
 h1 {
-  font: bold 50px /30px var(--font-tittle);
+  font: bold 8rem/30px var(--font-tittle);
   color: var(--high-light);
 }
 h2,
 p {
-  font: bold 23px /30px var(--font-tittle);
+  font: bold 3rem/30px var(--font-tittle);
   color: var(--white);
 }
 
-/* mobil 320px first styles */
-
-/* --------------------------------- Home Page --------------------- */
 #intro_page {
   height: 100%;
   background: var(--background) url(./images/home_page_backg.jpg) no-repeat right top;
@@ -76,15 +75,17 @@ p {
 #button {
   border: 1px solid var(--button1st);
   color: var(--white);
-  font: bold 13px/30px var(--font-tittle);
-  padding: 2.5%;
+  font: bold 14px/30px var(--font-tittle);
+  padding: 1% 2%;
   border-radius: 10px;
   background-color: var(--button1st);
+  margin-top: -10%;
 }
 footer {
   display: block;
-  width: 30%;
+  width: 10%;
   margin: auto;
+  color: var(--white);
 }
 
 /* --------------------------------- Student List Page --------------------- */
