@@ -14,6 +14,7 @@ const Student = {
     photo: " ",
     house: " ",
     enrole: true,
+    prefect: false
 }
 
 const settings = {
@@ -87,8 +88,9 @@ function handleJsonData(studentInf) {
         return allStudents.push(student);
     });
     getTotal();
-    //buildtList(allStudents);
+    //buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
     displayNewList(allStudents);
+
 }
 
 function capitalize(str) {
@@ -124,7 +126,7 @@ function filterList(filteredList) {
     } else if (settings.filterBy === "ravenclaw") {
         filteredList = allStudents.filter(houseR)
         raven.textContent = `There are ${filteredList.length} students in Ravenclaw`;
-    } else if (settings.filterBy === "exp-studenst") {
+    } else if (settings.filterBy === "exp-students") {
         filteredList = expelledStudent;
         document.querySelector("#studentStatus").textContent = "Expeled";
         expStud.textContent = `${filteredList.length} students expelled `;
@@ -138,8 +140,6 @@ function filterList(filteredList) {
 
     return filteredList;
 }
-
-
 
 function cleanFilButtons(studentHouse) {
     if (studentHouse === "gryffindor") {
@@ -253,7 +253,7 @@ function sortList(sortedList) {
 }
 
 function buildtList() {
-    const currentList = filterList(allStudents);
+    let currentList = filterList(allStudents);
     const sortedList = sortList(currentList);
     displayNewList(sortedList);
 }
@@ -307,9 +307,10 @@ function displayStudent(student) {
     clone.querySelector("[data-field=last_name]").textContent = student.lastName;
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
-    clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular;
+    /* clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular; */
 
-    // console.log("student.enrole", student.enrole)
+
+    /* --------------------------- // EXPELL STUDENTS// -------------------------------- */
     if (student.enrole === true) {
         clone.querySelector("[data-field=enrole]").textContent = "✔️";
     } else {
@@ -321,18 +322,33 @@ function displayStudent(student) {
     function expellStudent() {
         if (student.enrole === true) {
             student.enrole = false;
-            expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
-
-            //THIS ANIMATION WORKS JUST WHEN THERE IS A MISTAKE IN THE NEXT LINE
             this.parentElement.classList.add("animation");
-            console.log(thi.parent);
-
-            buildtList();
+            this.parentElement.addEventListener("animationend", () => {
+                expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
+                buildtList();
+            })
         }
-
     }
 
+
+    /* ------------------------------ // PREFECTS// ---------------------------------------- */
+    clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
+
+    clone.querySelector("[data-field=prefect]").addEventListener("click", selectPrefect);
+
+    function selectPrefect() {
+        if (student.prefect === true) {
+            student.prefect = false;
+            console.log("if prefect false becomes true");
+        } else {
+            makePrefect(student);
+        }
+        buildtList();
+    }
+
+
     /* ----------- //POP-UP// ---------------- */
+
     clone.querySelector(".pop").addEventListener("click", (event) => {
         //open pop-up
         document.querySelector("#pop_up").classList.add("open");
@@ -375,5 +391,9 @@ function displayStudent(student) {
 
     //5.- Append the child to the new parent element inside the DOM
     parent.appendChild(clone);
+
+}
+
+function makePrefect(student) {
 
 }

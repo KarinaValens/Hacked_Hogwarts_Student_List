@@ -54,7 +54,7 @@ p {
 /* --------------------------------- Home Page --------------------- */
 #intro_page {
   height: 100%;
-  background: var(--background) url(./images/dark-stormy-clouds.jpg) no-repeat right top;
+  background: var(--background) url(./images/home_page_backg.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
 }
@@ -241,10 +241,11 @@ tr.hidde {
   display: none;
 }
 th.sortBy {
+  /* active effect in the choosen sorting button */
   background: linear-gradient(120deg, rgba(180, 180, 200.1), rgba(255, 255, 255, 0));
 }
 
-/* ----------------------- //arrow directions// ------------------------------ */
+/* ----------------------- //arrow sortingdirections// ------------------------------ */
 th.sortBy[data-sort-direction="asc"]::after {
   content: "⇩";
   padding-left: 4px;
@@ -255,10 +256,23 @@ th.sortBy[data-sort-direction="desc"]::after {
 }
 
 /* ----------------------- //visual feedback from expelling students // ------------------------------ */
-
+@keyframes animation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
 .animation {
-  transform: translateX(100vw);
-  transition: transform 2s linear;
+  animation: animation 2s ease-in-out;
+}
+
+td[data-field="prefect"]::after {
+  content: "🎖️";
+}
+td[data-field="prefect"][data-prefect="false"]::after {
+  filter: grayscale(1);
 }
 
 /* responsiveness way too ambitious!!!! */
