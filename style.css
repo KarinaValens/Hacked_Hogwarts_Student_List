@@ -42,12 +42,16 @@ dl {
 /* --------------------------------- Home Page --------------------- */
 
 h1 {
-  font: bold 8rem/30px var(--font-tittle);
+  font: bold 7rem/30px var(--font-tittle);
   color: var(--high-light);
 }
-h2,
-p {
-  font: bold 3rem/30px var(--font-tittle);
+
+#intro_page p {
+  font: bold 2rem/25px var(--font-tittle);
+  color: var(--white);
+}
+h2 {
+  font: bold 2rem/25px var(--font-tittle);
   color: var(--white);
 }
 
@@ -107,7 +111,7 @@ footer {
   margin-left: 5%;
 }
 
-/* --------TABLE-------- */
+/* ---------------------------------- //TABLE// ---------------------- */
 
 table {
   width: 90%;
@@ -166,14 +170,13 @@ input {
 #houses button {
   margin-top: 3%;
 }
-/* ------------------ // POP-UP // ------------- */
+/* ------------------ // POP-UPS // ------------- */
 main {
   position: relative;
 }
 
 #pop_up {
   display: none;
-  background-color: var(--);
   position: absolute;
   left: 17%;
   top: 20%;
@@ -200,6 +203,8 @@ dd {
   width: 40%;
 }
 
+/*-- //classes to open and close pop-ups// --*/
+
 #pop_up.open {
   display: block;
 }
@@ -209,12 +214,44 @@ dd {
 main.close {
   display: none;
 }
-#close_pop {
+#close_pop/*  */ {
   display: none;
   font: bold 3rem/3rem var(--font-tittle);
   position: absolute;
   left: 80%;
   color: var(--white);
+}
+
+/* prefects */
+
+#remove_aorb {
+  display: none;
+  position: absolute;
+  left: 30%;
+  top: 30%;
+  width: 40%;
+  color: var(--white);
+  font: bold 1rem/3rem var(--font-tittle);
+  text-align: center;
+  padding: 0.7rem 2rem;
+  background: linear-gradient(135deg, rgb(99 89 148), rgb(99 89 148 / 48%));
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+}
+#remove_a,
+#remove_b {
+  padding: 3%;
+}
+#close_pop_remov_aorb {
+  font: bold 3rem/3rem var(--font-tittle);
+  position: absolute;
+  top: 0;
+  right: 5%;
+  color: var(--white);
+}
+#remove_aorb.open {
+  display: block;
 }
 
 /* --------------------------- // Changing Background// ----------------- */
@@ -272,6 +309,7 @@ th.sortBy[data-sort-direction="desc"]::after {
 td[data-field="prefect"]::after {
   content: "🎖️";
 }
+
 td[data-field="prefect"][data-prefect="false"]::after {
   filter: grayscale(1);
 }

@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", init);
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 let allStudents = [];
 let expelledStudent = [];
+let halfBlodd = []; //loop to check if the student last name apears in one of the list
+let pureBlodd = []; //loop to check if the student last name apears in one of the list
 //prototype
 const Student = {
     name: " ",
@@ -88,8 +90,8 @@ function handleJsonData(studentInf) {
         return allStudents.push(student);
     });
     getTotal();
-    //buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
-    displayNewList(allStudents);
+    buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
+    //displayNewList(allStudents);
 
 }
 
@@ -267,21 +269,30 @@ function search() {
     //getting the input from the field
     searchInput.addEventListener("keyup", (event) => {
 
-        let searchVal = event.target.value;
-
+        let searchVal = capitalize(event.target.value);
         const searchFilt = allStudents.filter(student => {
             return student.name.includes(searchVal) || student.lastName.includes(searchVal);
-
         })
         displayNewList(searchFilt);
     })
-
 }
 /* ------------------------------------- //TOTALS//-------------------------------- */
 
 function getTotal() {
     document.querySelector("#total").value = `Total of Hogwards' students ${allStudents.length+1}`;
 }
+
+/* ------------------------------------- //BLOOD STATUS//-------------------------------- */
+
+//if statemens if the student last name apears in one array then set it to that status
+/*
+-load json file
+- for each student set the status to muggle 
+if(student.lastname===in the halfBlood arrat){
+    student.bloodStatus=halfBllod
+} maybe another if for the other array and at the end an else 
+-if the student is in both is going to go to pure
+ */
 
 /* ------------------------------ // DISPLAY THE NEW VIEW // ---------------------------------- */
 
@@ -341,7 +352,7 @@ function displayStudent(student) {
             student.prefect = false;
             console.log("if prefect false becomes true");
         } else {
-            makePrefect(student);
+            managePrefects(student);
         }
         buildtList();
     }
@@ -394,6 +405,62 @@ function displayStudent(student) {
 
 }
 
-function makePrefect(student) {
+function managePrefects(selectedStudent) {
 
+    const prefects = allStudents.filter(student => student.prefect); //filter gives me an array back
+
+    const otherPrefect = prefects.filter(student => student.house === selectedStudent.house);
+    const prefectsPerHouse = otherPrefect.length;
+
+    console.log(otherPrefect);
+    //if there are 2 of the same type    
+    if (prefectsPerHouse >= 2) {
+        console.log("there can only be 2 prefects total");
+        removeAorB(prefects[0], prefects[1])
+    } else {
+        assignPrefect(selectedStudent);
+    }
+
+    function removeAorB(prefectA, prefectB) {
+        //ask the user to cancel or move A or B
+        //if user cancel do nothing
+        //if remove A
+        console.log(`remove A or B`);
+
+        document.querySelector("#remove_aorb").classList.add("open");
+        document.querySelector("main").classList.add("close");
+
+        document.querySelector("#remove_a").addEventListener("click", () => {
+            assignPrefect(selectedStudent);
+            removePrefect(prefectA);
+            console.log("this is happening");
+            document.querySelector("#remove_aorb").classList.remove("open");
+            document.querySelector("main").classList.remove("close");
+
+            buildtList();
+
+        })
+
+        //else - if remove B
+        document.querySelector("#remove_b").addEventListener("click", () => {
+            assignPrefect(selectedStudent);
+            removePrefect(prefectB);
+
+            document.querySelector("#remove_aorb").classList.remove("open");
+            document.querySelector("main").classList.remove("close");
+
+            buildtList();
+
+        })
+    }
+
+
+    function removePrefect(student) {
+        console.log("I am being called")
+        student.prefect = false;
+    }
+
+    function assignPrefect(student) {
+        student.prefect = true;
+    }
 }
