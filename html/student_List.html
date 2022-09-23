@@ -56,8 +56,7 @@
                     <th data-action="sort" data-sort-direction="asc" data-sort="nickName">Nickname</th>
                     <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
                     <th id="studentStatus" class="expe-text" title="CLICK ✔️ TO EXPELL A STUDENT">Enrole</th>
-                    <!--                     <th data-action="sort" data-sort-direction="asc" data-sort="extCurricular">Extra Curricular</th>
- -->
+
                 </tr>
             </thead>
 
@@ -76,7 +75,6 @@
                 <td class="pop" data-field="nick_name">Nickname</td>
                 <td class="pop" data-field="house">House</td>
                 <td data-field="enrole" title="CLICK ✔️ TO EXPELL THE STUDENT">✔️</td>
-                <!-- <td class="pop" data-field="ext_curricular">Extra Curricular</td> -->
             </tr>
         </template>
 
@@ -86,7 +84,7 @@
     <div id="pop_container">
         <dl id="pop_up">
             <p id="close_pop">X</p>
-            <p id="house"></p>
+            <h2 id="house"></h2>
             <img src="../images/stud_images/abbott_h.png" alt="Abbott H pic">
 
             <p id="student_ident"></p>
@@ -97,12 +95,14 @@
             <dt>Nickname:</dt>
             <dd id="nick_name"></dd>
 
-            <dt>Extra Curricular Activities:</dt>
+            <dt>Extra Curricular:</dt>
             <dd id="prefecto"></dd>
-            <!-- <dd id="inquis-squad"></dd> -->
 
-            <dt>Status:</dt>
+            <dt>Enrole status:</dt>
             <dd id="expelled"></dd>
+
+            <dt>Family`s Blood:</dt>
+            <dd id="familyBlood"></dd>
         </dl>
 
     </div>

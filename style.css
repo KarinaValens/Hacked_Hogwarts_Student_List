@@ -263,17 +263,17 @@ main.close {
 }
 
 /* --- //color background// --- */
-.prefectG {
-  background-color: var(--house-gryf);
+.gryf_color {
+  color: var(--house-gryf);
 }
-tr.prefectS {
-  background-color: var(--house-slyt);
+.slyt_color {
+  color: var(--house-slyt);
 }
-.prefectH {
-  background-color: var(--house-huff);
+.huff_color {
+  color: var(--house-huff);
 }
-.prefectR {
-  background-color: var(--house-raven);
+.raven_color {
+  color: var(--house-raven);
 }
 
 /* --------------------------- // Changing Background// ----------------- */

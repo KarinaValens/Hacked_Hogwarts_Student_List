@@ -6,8 +6,9 @@ const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 const url2 = "https://petlatkea.dk/2021/hogwarts/families.json";
 let allStudents = [];
 let expelledStudent = [];
-let halfBlodd = []; //loop to check if the student last name apears in one of the list
-let pureBlodd = []; //loop to check if the student last name apears in one of the list
+let halfBlood = []; //loop to check if the student last name apears in one of the list
+let pureBlood = []; //loop to check if the student last name apears in one of the list
+
 //prototype
 const Student = {
     name: " ",
@@ -17,7 +18,8 @@ const Student = {
     photo: " ",
     house: " ",
     enrole: true,
-    prefect: false
+    prefect: false,
+    bloodStatus: "muggle"
 }
 
 const settings = {
@@ -49,10 +51,26 @@ async function loadJson() {
 
     const res = await fetch(url);
     const studentData = await res.json();
-    handleJsonData(studentData);
+    const familiesData = await loadJsonFamilies(); //this line make the the call back for handleJsonData wait until familiesData is upload
+    handleJsonData(studentData, familiesData);
 }
 
-function handleJsonData(studentInf) {
+async function loadJsonFamilies() {
+    const res = await fetch(url2);
+    const familiesData = await res.json()
+    //return the families data to make it available outsite the function
+    return familiesData;
+}
+
+function handleJsonData(studentInf, familiesData) {
+
+    familiesData.half.forEach(lastName => {
+        halfBlood.push(lastName);
+    });
+
+    familiesData.pure.forEach(lastName => {
+        pureBlood.push(lastName);
+    });
 
     studentInf.forEach(stud => {
         //clean the data for each element
@@ -91,13 +109,32 @@ function handleJsonData(studentInf) {
         /* ---------------------student.house--------------- */
         student.house = capitalize(stud.house.trim());
 
+        /* ------------------------------------- //BLOOD STATUS//-------------------------------- */
+
+        //if statemens if the student last name apears in one array then set it to that status
+        /*
+        if(student.lastname===in the halfBlood arrat){
+            student.bloodStatus=halfBllod
+        } maybe another if for the other array and at the end an else 
+        -if the student is in both is going to go to pure
+         */
+        if (halfBlood.includes(student.lastName) && pureBlood.includes(student.lastName)) {
+            student.bloodStatus = "half-half-blood"
+        } else if (halfBlood.includes(student.lastName)) {
+            student.bloodStatus = "half-blood";
+        } else if (pureBlood.includes(student.lastName)) {
+            student.bloodStatus = "pure-blood";
+        } else if (!halfBlood.includes(student.lastName) && !pureBlood.includes(student.lastName)) {
+            student.bloodStatus = "muggle-born"
+        }
+
+        console.log(student.lastName, student.bloodStatus);
         //adding a student to the allStudents array of object at the beginning of the script
         return allStudents.push(student);
     });
+
     getTotal();
     buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
-    //displayNewList(allStudents);
-
 }
 
 function capitalize(str) {
@@ -292,18 +329,6 @@ function getTotal() {
     document.querySelector("#total").value = `Total of Hogwards' students ${allStudents.length+1}`;
 }
 
-/* ------------------------------------- //BLOOD STATUS//-------------------------------- */
-
-//if statemens if the student last name apears in one array then set it to that status
-/*
--load json file
-- for each student set the status to muggle 
-if(student.lastname===in the halfBlood arrat){
-    student.bloodStatus=halfBllod
-} maybe another if for the other array and at the end an else 
--if the student is in both is going to go to pure
- */
-
 /* ------------------------------ // DISPLAY THE NEW VIEW // ---------------------------------- */
 
 
@@ -329,6 +354,58 @@ function displayStudent(student) {
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
     /* clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular; */
+
+    /* ----------- //POP-UP// ---------------- */
+
+    clone.querySelector(".pop").addEventListener("click", (event) => {
+        //open pop-up
+        document.querySelector("#pop_up").classList.add("open");
+        //hidding table
+        document.querySelector("main").classList.add("close");
+
+        document.querySelector("#close_pop").addEventListener("click", () => {
+            document.querySelector("#pop_up").classList.remove("open");
+            document.querySelector("main").classList.remove("close");
+            document.querySelector("#body_list").classList = " ";
+        })
+
+
+        //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
+        document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
+        document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
+        document.querySelector("#student_ident").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
+        document.querySelector("#middle_name").textContent = student.middleName;
+        document.querySelector("#nick_name").textContent = student.nickName;
+        document.querySelector("#house").textContent = student.house;
+        //Enrrolled status
+        if (student.enrole === true) {
+            document.querySelector("#expelled").textContent = "✔️ Enroled";
+        } else {
+            document.querySelector("#expelled").textContent = "❌ Expelled";
+        }
+        //Blood status
+        if (student.bloodStatus === "half--half-blood") {
+            document.querySelector("#familyBlood").textContent = `🧙 + 👨‍👦 ${student.bloodStatus}`;
+        } else if (student.bloodStatus === "half-blood") {
+            document.querySelector("#familyBlood").textContent = `🧙‍♂️ + 👩‍👧 ${student.bloodStatus}`;
+        } else if (student.bloodStatus === "pure-blood") {
+            document.querySelector("#familyBlood").textContent = `🧙‍♂️ + 🧙 ${student.bloodStatus}`;
+        } else if (student.bloodStatus === "muggle-born") {
+            document.querySelector("#familyBlood").textContent = `👨‍👩‍👧 ${student.bloodStatus}`;
+        }
+
+        //changing body background 
+        //HOW TO CALL THE FUNCTION CHANGE BACKGROUND INSIDE THE CLONE?
+        if (student.house === "Gryffindor") {
+            document.querySelector("#body_list").classList.add("back_griff");
+        } else if (student.house === "Slytherin") {
+            document.querySelector("#body_list").classList.add("back_slyt");
+        } else if (student.house === "Hufflepuff") {
+            document.querySelector("#body_list").classList.add("back_huff");
+        } else if (student.house === "Ravenclaw") {
+            document.querySelector("#body_list").classList.add("back_raven");
+        }
+    });
 
 
     /* --------------------------- // EXPELL STUDENTS// -------------------------------- */
@@ -360,10 +437,8 @@ function displayStudent(student) {
     function selectPrefect() {
         if (student.prefect === true) {
             student.prefect = false;
-            console.log("if prefect false becomes true");
         } else {
             managePrefects(student);
-            console.log("trying to make a prefect")
         }
 
         /* if (student.prefect && student.house === "Gryffindor") {
@@ -383,51 +458,6 @@ function displayStudent(student) {
     }
 
 
-    /* ----------- //POP-UP// ---------------- */
-
-    clone.querySelector(".pop").addEventListener("click", (event) => {
-        //open pop-up
-        document.querySelector("#pop_up").classList.add("open");
-        //hidding table
-        document.querySelector("main").classList.add("close");
-
-        document.querySelector("#close_pop").addEventListener("click", () => {
-            document.querySelector("#pop_up").classList.remove("open");
-            document.querySelector("main").classList.remove("close");
-            document.querySelector("#body_list").classList = " ";
-        })
-
-
-        //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
-        document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
-        document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
-        document.querySelector("#student_ident").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
-        document.querySelector("#middle_name").textContent = student.middleName;
-        document.querySelector("#nick_name").textContent = student.nickName;
-        document.querySelector("#house").textContent = student.house;
-
-        if (student.enrole === true) {
-            document.querySelector("#expelled").textContent = "✔️ Enroled";
-        } else {
-            document.querySelector("#expelled").textContent = "❌ Expelled";
-        }
-
-        //changing body background 
-        //HOW TO CALL THE FUNCTION CHANGE BACKGROUND INSIDE THE CLONE?
-        if (student.house === "Gryffindor") {
-            document.querySelector("#body_list").classList.add("back_griff");
-        } else if (student.house === "Slytherin") {
-            document.querySelector("#body_list").classList.add("back_slyt");
-
-        } else if (student.house === "Hufflepuff") {
-            document.querySelector("#body_list").classList.add("back_huff");
-        } else if (student.house === "Ravenclaw") {
-            document.querySelector("#body_list").classList.add("back_raven");
-        }
-        //querySelector("#ext_curricular").textContent = student.extCurricular;
-        //document.querySelector("#pic").textContent = student.pic;
-    });
-
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");
 
@@ -435,6 +465,11 @@ function displayStudent(student) {
     parent.appendChild(clone);
 
 }
+
+
+
+
+/* ------------------------------ // PREFECTS // ---------------------------------- */
 
 function managePrefects(selectedStudent) {
 
@@ -457,7 +492,11 @@ function managePrefects(selectedStudent) {
         //if remove A
         document.querySelector("#close_pop_remov_aorb").addEventListener("click", closePopUp)
         document.querySelector("#remove_aorb").classList.add("open");
-        document.querySelector("#house_name").textContent = `${prefectA.house.toUpperCase()}`;
+        document.querySelector("#house_name").textContent = `
+                    $ {
+                        prefectA.house.toUpperCase()
+                    }
+                    `;
         //hidde the main
         document.querySelector("main").classList.add("close");
 
@@ -466,8 +505,6 @@ function managePrefects(selectedStudent) {
         //showing prefects names
         document.querySelector("#remove_aorb [data-field=prefectA]").textContent = prefectA.name;
         document.querySelector("#remove_aorb [data-field=prefectB]").textContent = prefectB.name;
-
-
 
         function removeA() {
             assignPrefect(selectedStudent);
@@ -482,8 +519,6 @@ function managePrefects(selectedStudent) {
             closePopUp();
             buildtList();
         }
-
-        //else - if remove B
 
         function closePopUp() {
             document.querySelector("#remove_a").removeEventListener("click", removeA);
@@ -500,5 +535,4 @@ function managePrefects(selectedStudent) {
     function assignPrefect(student) {
         student.prefect = true;
     }
-    return prefects.push.prefect;
 }
