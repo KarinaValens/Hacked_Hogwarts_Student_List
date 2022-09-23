@@ -85,6 +85,7 @@
     <!-- POP-UP -->
     <div id="pop_container">
         <dl id="pop_up">
+            <p id="close_pop">X</p>
             <p id="house"></p>
             <img src="../images/stud_images/abbott_h.png" alt="Abbott H pic">
 
@@ -103,18 +104,19 @@
             <dt>Status:</dt>
             <dd id="expelled"></dd>
         </dl>
-        <a href="../html/student_List.html" id="close_pop">X</a>
+
     </div>
 
 
     <div id="remove_aorb" class="modal">
         <div class="dialog">
-            <a href="../html/student_List.html" id="close_pop_remov_aorb">X</a>
+            <p id="close_pop_remov_aorb">X</p>
             <h3> Warning </h3>
-            <p>There can not be more than 2 prefects per house. <span>There are already 2 prefects in this house</span>
+            <p>There can not be more than 2 prefects per house. <br>There are already 2 prefects in <span
+                    id="house_name">house</span>
                 Do you want to move: </p>
-            <button id="remove_a">Remove: <span>A </span></button>
-            <button id="remove_b">Remove: <span>B </span></button>
+            <button id="remove_a">Remove: <span data-field="prefectA">A </span></button>
+            <button id="remove_b">Remove: <span data-field="prefectB">B </span></button>
         </div>
     </div>
 

@@ -4,7 +4,11 @@
   --bc: hsl(0deg 0% 0%);
   --high-light: hsl(55deg 89% 47%);
   --high-light2: hsl(233deg 88% 41%);
-  --white: #ffffff;
+  --house-gryf: hsl(44, 85%, 56%);
+  --house-slyt: hsl(140, 40%, 27%);
+  --house-huff: hsl(226, 46%, 25%);
+  --house-raven: hsl(51, 100%, 76%);
+  --white: hsl(0, 0%, 100%);
 
   --button1st: hsl(0deg 0% 89% / 18%);
   --button2nd: hsl(0deg 5% 34% / 62%);
@@ -215,7 +219,7 @@ main.close {
   display: none;
 }
 #close_pop/*  */ {
-  display: none;
+  /* display: none; */
   font: bold 3rem/3rem var(--font-tittle);
   position: absolute;
   left: 80%;
@@ -252,6 +256,24 @@ main.close {
 }
 #remove_aorb.open {
   display: block;
+}
+
+#house_name {
+  color: var(--high-light);
+}
+
+/* --- //color background// --- */
+.prefectG {
+  background-color: var(--house-gryf);
+}
+tr.prefectS {
+  background-color: var(--house-slyt);
+}
+.prefectH {
+  background-color: var(--house-huff);
+}
+.prefectR {
+  background-color: var(--house-raven);
 }
 
 /* --------------------------- // Changing Background// ----------------- */
@@ -307,7 +329,7 @@ th.sortBy[data-sort-direction="desc"]::after {
 }
 
 td[data-field="prefect"]::after {
-  content: "🎖️";
+  content: "🧙‍♀️";
 }
 
 td[data-field="prefect"][data-prefect="false"]::after {
