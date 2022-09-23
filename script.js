@@ -128,7 +128,6 @@ function handleJsonData(studentInf, familiesData) {
             student.bloodStatus = "muggle-born"
         }
 
-        console.log(student.lastName, student.bloodStatus);
         //adding a student to the allStudents array of object at the beginning of the script
         return allStudents.push(student);
     });
@@ -373,8 +372,7 @@ function displayStudent(student) {
         //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
         document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
         document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
-        document.querySelector("#student_ident").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
-        document.querySelector("#middle_name").textContent = student.middleName;
+        document.querySelector("#student_full_name").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
         document.querySelector("#nick_name").textContent = student.nickName;
         document.querySelector("#house").textContent = student.house;
         //Enrrolled status
@@ -394,16 +392,46 @@ function displayStudent(student) {
             document.querySelector("#familyBlood").textContent = `👨‍👩‍👧 ${student.bloodStatus}`;
         }
 
-        //changing body background 
-        //HOW TO CALL THE FUNCTION CHANGE BACKGROUND INSIDE THE CLONE?
+        //CHANGING THEME ACORDING THE STUDENT´S HOUSE 
+
+        const body = document.querySelector("#body_list");
+        const elements = document.querySelectorAll("#house, #student_full_name, dt");
+
         if (student.house === "Gryffindor") {
-            document.querySelector("#body_list").classList.add("back_griff");
+            body.classList.add("back_griff");
+            elements.forEach(element => {
+                element.classList = " ";
+            });
+            elements.forEach(element => {
+                element.classList.add("gryf_color")
+            });
+
         } else if (student.house === "Slytherin") {
-            document.querySelector("#body_list").classList.add("back_slyt");
+            body.classList.add("back_slyt");
+            elements.forEach(element => {
+                element.classList = " ";
+            });
+            elements.forEach(element => {
+                element.classList.add("slyt_color")
+            });
+
         } else if (student.house === "Hufflepuff") {
-            document.querySelector("#body_list").classList.add("back_huff");
+            body.classList.add("back_huff");
+            elements.forEach(element => {
+                element.classList = " ";
+            });
+            elements.forEach(element => {
+                element.classList.add("huff_color")
+            });
+
         } else if (student.house === "Ravenclaw") {
-            document.querySelector("#body_list").classList.add("back_raven");
+            body.classList.add("back_raven");
+            elements.forEach(element => {
+                element.classList = " ";
+            });
+            elements.forEach(element => {
+                element.classList.add("raven_color")
+            });
         }
     });
 
@@ -441,8 +469,9 @@ function displayStudent(student) {
             managePrefects(student);
         }
 
-        /* if (student.prefect && student.house === "Gryffindor") {
-            this.parentElement.classList.add("prefectG");
+        //trying to change the backgroun of the prefects td
+        /* if (student.house === "Gryffindor") {
+            document.querySelector.classList.add("gryf_background");
             console.log("gryf backgroung");
         } else if (student.prefect && student.house === "Slytherin") {
             this.parentElement.classList.add("prefectS");
@@ -492,11 +521,7 @@ function managePrefects(selectedStudent) {
         //if remove A
         document.querySelector("#close_pop_remov_aorb").addEventListener("click", closePopUp)
         document.querySelector("#remove_aorb").classList.add("open");
-        document.querySelector("#house_name").textContent = `
-                    $ {
-                        prefectA.house.toUpperCase()
-                    }
-                    `;
+        document.querySelector("#house_name").textContent = prefectA.house.toUpperCase();
         //hidde the main
         document.querySelector("main").classList.add("close");
 

@@ -4,10 +4,10 @@
   --bc: hsl(0deg 0% 0%);
   --high-light: hsl(55deg 89% 47%);
   --high-light2: hsl(233deg 88% 41%);
-  --house-gryf: hsl(44, 85%, 56%);
-  --house-slyt: hsl(140, 40%, 27%);
-  --house-huff: hsl(226, 46%, 25%);
-  --house-raven: hsl(51, 100%, 76%);
+  --house-gryf: hsl(354deg 58% 32%);
+  --house-slyt: hsl(139, 23%, 24%);
+  --house-huff: hsl(42deg 57% 32%);
+  --house-raven: hsl(237deg 42% 24%);
   --white: hsl(0, 0%, 100%);
 
   --button1st: hsl(0deg 0% 89% / 18%);
@@ -182,29 +182,32 @@ main {
 #pop_up {
   display: none;
   position: absolute;
-  left: 17%;
-  top: 20%;
-  width: 60%;
-  color: var(--white);
+  text-align: center;
+  left: 25%;
+  top: 12%;
+  width: 45%;
   font: bold 1rem/3rem var(--font-tittle);
-
-  padding: 0.7rem 4rem;
+  padding: 1rem 2rem;
   background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 6px;
 }
+
+#house {
+  margin: 2%;
+}
 dt {
-  color: var(--high-light2);
   border-bottom: 1.5px solid var(--button2nd);
 }
 dd {
-  color: var(--bc);
+  color: var(--white);
 }
 dt,
 dd {
   display: inline-block;
   width: 40%;
+  text-align: left;
 }
 
 /*-- //classes to open and close pop-ups// --*/
@@ -218,11 +221,11 @@ dd {
 main.close {
   display: none;
 }
-#close_pop/*  */ {
-  /* display: none; */
+#close_pop {
   font: bold 3rem/3rem var(--font-tittle);
   position: absolute;
-  left: 80%;
+  top: 10%;
+  right: 7%;
   color: var(--white);
 }
 
@@ -259,12 +262,16 @@ main.close {
 }
 
 #house_name {
+  /* inside the prefect pop-up */
   color: var(--high-light);
 }
 
 /* --- //color background// --- */
 .gryf_color {
   color: var(--house-gryf);
+}
+.gryf_background {
+  background-color: var(--house-gryf);
 }
 .slyt_color {
   color: var(--house-slyt);
