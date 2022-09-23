@@ -142,7 +142,7 @@ function filterList(filteredList) {
         document.querySelector("#studentStatus").textContent = "Enrole";
         expStud.textContent = `Expelled Students`;
     } else if (settings.filterBy === "prefect") {
-        filteredList = prefects;
+        filteredList = allStudents.filter(prefects);
     }
     document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
 
@@ -208,6 +208,10 @@ function houseH(student) {
 
 function houseR(student) {
     return student.house === "Ravenclaw";
+}
+
+function prefects(student) {
+    return student.prefect === true;
 }
 
 /* ------------------------------ // SORTING // ---------------------------------- */
@@ -362,7 +366,7 @@ function displayStudent(student) {
             console.log("trying to make a prefect")
         }
 
-        if (student.prefect && student.house === "Gryffindor") {
+        /* if (student.prefect && student.house === "Gryffindor") {
             this.parentElement.classList.add("prefectG");
             console.log("gryf backgroung");
         } else if (student.prefect && student.house === "Slytherin") {
@@ -373,7 +377,7 @@ function displayStudent(student) {
             this.parentElement.classList.add("prefectH");
         } else if (student.prefect && student.house === "Ravenclaw") {
             this.parentElement.classList.add("prefectR");
-        }
+        } */
 
         buildtList();
     }
@@ -496,5 +500,5 @@ function managePrefects(selectedStudent) {
     function assignPrefect(student) {
         student.prefect = true;
     }
-    //return prefects;
+    return prefects.push.prefect;
 }
