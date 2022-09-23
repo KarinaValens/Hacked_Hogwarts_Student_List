@@ -185,9 +185,9 @@ main {
   text-align: center;
   left: 25%;
   top: 12%;
-  width: 45%;
+  width: 55%;
   font: bold 1rem/3rem var(--font-tittle);
-  padding: 1rem 2rem;
+  padding: 1rem;
   background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -206,7 +206,7 @@ dd {
 dt,
 dd {
   display: inline-block;
-  width: 40%;
+  width: 45%;
   text-align: left;
 }
 
@@ -266,7 +266,7 @@ main.close {
   color: var(--high-light);
 }
 
-/* --- //color background// --- */
+/* --- //color per houses// --- */
 .gryf_color {
   color: var(--house-gryf);
 }
@@ -334,12 +334,21 @@ th.sortBy[data-sort-direction="desc"]::after {
 .animation {
   animation: animation 2s ease-in-out;
 }
-
+/* -------- //PREFECTS// ------------ */
 td[data-field="prefect"]::after {
   content: "🧙‍♀️";
 }
 
 td[data-field="prefect"][data-prefect="false"]::after {
+  filter: grayscale(1);
+}
+/* -------- //INQUISITORIAL SQUAD// ------------ */
+
+td[data-field="inq_squad"]::after {
+  content: "👮‍♂️";
+}
+
+td[data-field="inq_squad"][data-squad="false"]::after {
   filter: grayscale(1);
 }
 

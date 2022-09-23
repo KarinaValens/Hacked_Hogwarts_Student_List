@@ -19,7 +19,8 @@ const Student = {
     house: " ",
     enrole: true,
     prefect: false,
-    bloodStatus: "muggle"
+    bloodStatus: "muggle",
+    squad: false
 }
 
 const settings = {
@@ -38,6 +39,7 @@ function init() {
 function buttons() {
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
     document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+
 }
 
 async function loadJson() {
@@ -111,13 +113,6 @@ function handleJsonData(studentInf, familiesData) {
 
         /* ------------------------------------- //BLOOD STATUS//-------------------------------- */
 
-        //if statemens if the student last name apears in one array then set it to that status
-        /*
-        if(student.lastname===in the halfBlood arrat){
-            student.bloodStatus=halfBllod
-        } maybe another if for the other array and at the end an else 
-        -if the student is in both is going to go to pure
-         */
         if (halfBlood.includes(student.lastName) && pureBlood.includes(student.lastName)) {
             student.bloodStatus = "half-half-blood"
         } else if (halfBlood.includes(student.lastName)) {
@@ -173,12 +168,14 @@ function filterList(filteredList) {
         filteredList = expelledStudent;
         document.querySelector("#studentStatus").textContent = "Expeled";
         expStud.textContent = `${filteredList.length} students expelled `;
+    } else if (settings.filterBy === "prefect") {
+        filteredList = allStudents.filter(prefects);
+    } else if (settings.filterBy === "inq_squad") {
+        filteredList = allStudents.filter(squad);
     } else if (settings.filterBy === "*") {
         filteredList = allStudents;
         document.querySelector("#studentStatus").textContent = "Enrole";
         expStud.textContent = `Expelled Students`;
-    } else if (settings.filterBy === "prefect") {
-        filteredList = allStudents.filter(prefects);
     }
     document.querySelector("#total_disp").value = `Displaying : ${filteredList.length} students`;
 
@@ -250,6 +247,9 @@ function prefects(student) {
     return student.prefect === true;
 }
 
+function squad(student) {
+    return student.squad === true;
+}
 /* ------------------------------ // SORTING // ---------------------------------- */
 
 function selectSort(event) {
@@ -304,6 +304,7 @@ function buildtList() {
     let currentList = filterList(allStudents);
     const sortedList = sortList(currentList);
     displayNewList(sortedList);
+
 }
 
 /* ------------------------------ // SEARCH // ---------------------------------- */
@@ -352,9 +353,8 @@ function displayStudent(student) {
     clone.querySelector("[data-field=last_name]").textContent = student.lastName;
     clone.querySelector("[data-field=nick_name]").textContent = student.nickName;
     clone.querySelector("[data-field=house]").textContent = student.house;
-    /* clone.querySelector("[data-field=ext_curricular]").textContent = student.extCurricular; */
 
-    /* ----------- //POP-UP// ---------------- */
+    /* ---------------------------------- //POP-UP// ----------------------------------- */
 
     clone.querySelector(".pop").addEventListener("click", (event) => {
         //open pop-up
@@ -374,6 +374,16 @@ function displayStudent(student) {
         document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
         document.querySelector("#student_full_name").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
         document.querySelector("#nick_name").textContent = student.nickName;
+        if (student.prefect === true && student.squad === true) {
+            document.querySelector("#ext_curr").textContent = `${student.lastName} is 🧙‍♂️ & 👮‍♂️ needs social life`;
+        } else if (student.prefect === true) {
+            document.querySelector("#ext_curr").textContent = `${student.lastName} 🧙‍♂️ is prefect`;
+        } else if (student.squad === true) {
+            document.querySelector("#ext_curr").textContent = `${student.lastName} 👮‍♂️ is from the Inq. Squad`;
+        } else {
+            document.querySelector("#ext_curr").textContent = `${student.lastName} 👩‍💻 is just a student`;
+
+        }
         document.querySelector("#house").textContent = student.house;
         //Enrrolled status
         if (student.enrole === true) {
@@ -485,7 +495,24 @@ function displayStudent(student) {
 
         buildtList();
     }
+    /* ------------------------------ // INQUISITORIAL SQUAD // ---------------------------------------- */
 
+    clone.querySelector("[data-field=inq_squad]").dataset.squad = student.squad;
+
+    clone.querySelector("[data-field=inq_squad]").addEventListener("click", selectSquad);
+
+    function selectSquad() {
+        if (student.squad === true) {
+            student.squad = false;
+
+        } else if (student.bloodStatus === "pure-blood") {
+            if (student.house === "Slytherin") { //manageSquad(student);
+                student.squad = true;
+            }
+        }
+        buildtList();
+        console.log(student.lastName, student.squad);
+    }
 
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");
@@ -494,9 +521,6 @@ function displayStudent(student) {
     parent.appendChild(clone);
 
 }
-
-
-
 
 /* ------------------------------ // PREFECTS // ---------------------------------- */
 
