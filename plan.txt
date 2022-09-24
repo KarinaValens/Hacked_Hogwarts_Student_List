@@ -1,70 +1,88 @@
 1.- Wireframes DONE
 2.- Prototype DONE
 3.- Clean the data DONE (start from the end)
-        1.- html mark-up 
-        2.- style css (bulding alone the way) 
-        3.- javaScript
-            a.- getting the json data.
-                - on dom load => funct.init  that calls the funct.loadJson.
-                - funct.loadJson => request the data and return it in json format. Call funct.handle data.
-            b.- funct.handleData => 
-                i. forEach.obj from the json data 
-                        - create a new object
-                ii. clean the data for the new object
-                iii. assign names, variables to each part of the data to be displayed
-                iv. separate the strings
-                v. capitalize strings => called-back funct.capitalize
-                vi. forEach.obj return/push new object with the cleaned data
-                vii. call-back funct.displayNewList
-            c.- funct.capitalize => capitalize all the first letter in the target string
-            c.- funct.displayNewList => forEach.student => funct.displayStudent.
-            d.- funct.displayStudent => - select the template
-                                        - make a clone
-                                        - populate data => call-back closure.funct.pop-up=> extendent student information
-                                        - select a parent element in the dom
-                                        - append the new dom child into the parent element
-            filtering-process
-            e. funct.filterList => - started just appliying filter functions one by one 
-                                    - later on put them together in this function with if statements
-                                    - forEach house built up functions that show the students in that house
-                                    - modifyes the filter by house button.output for each house
-                                    - return a new filtered array 
-                                    - calls-back a filtered funct.displayNewList. 
-               adding user interactivity  
+    1.- html mark-up 
+    2.- style css (bulding alone the way) 
+    3.- javaScript
+        a.- getting the json data.
+            - on dom load => funct.init  that calls the funct.loadJson.
+            - funct.loadJson => request the data and return it in json format. Call funct.handle data.
+        b.- funct.handleData => 
+            i. forEach.obj from the json data 
+                    - create a new object
+            ii. clean the data for the new object
+            iii. assign names, variables to each part of the data to be displayed
+            iv. separate the strings
+            v. capitalize strings => called-back funct.capitalize
+            vi. forEach.obj return/push new object with the cleaned data
+            vii. call-back funct.displayNewList
+        c.- funct.capitalize => capitalize all the first letter in the target string
+        c.- funct.displayNewList => forEach.student => funct.displayStudent.
+        d.- funct.displayStudent => - select the template
+                                    - make a clone
+                                    - populate data => call-back closure.funct.pop-up=> extendent student information
+                                    - select a parent element in the dom
+                                    - append the new dom child into the parent element
+        filtering-process
+        e. funct.filterList => - started just appliying filter functions one by one 
+                                - later on put them together in this function with if statements
+                                - forEach house built up functions that show the students in that house
+                                - modifyes the filter by house button.output for each house
+                                - return a new filtered array 
+                                - calls-back a filtered funct.displayNewList. 
+            adding user interactivity  
 
-            f. funct.buttons    =>   - set eventListener in the buttons to filter, this buttos call-back the funct.select.Filter
-                       
-            g. funct.selectFilter=> set the event target as a filter and return it
-                                    - calls-back funct.filterList 
-                                    - calls-back funct.changeBacground adding classes to thr body tag 
-                                    - calls-back funct.cleanButtonsFilter
-            h. funct.houses(4functions each for each house) if the filter (the target event) is ===to a house returns students just for that house
-            i. funct.changeBacground adding classes to the body tag 
-            i. funct.cleanButtonsFilter clean the classes from the filtering bottons.
+        f. funct.buttons    =>   - set eventListener in the buttons to filter, this buttos call-back the funct.select.Filter
+                    
+        g. funct.selectFilter=> set the event target as a filter and return it
+                                - calls-back funct.filterList 
+                                - calls-back funct.changeBacground adding classes to thr body tag 
+                                - calls-back funct.cleanButtonsFilter
+        h. funct.houses(4functions each for each house) if the filter (the target event) is ===to a house returns students just for that house
+        i. funct.changeBacground adding classes to the body tag 
+        i. funct.cleanButtonsFilter clean the classes from the filtering bottons.
 
-            sorting process
-            j. funct.sortList =>    - started just appliying sort functions one by one 
-                                    - later on put them together in this function with if statements
-                                    - return the array sorting "asc". 
-                                    - toggle the direction with if statement return 1 and -1.
-                                    - calls-back a sorted funct.displayNewList. 
-            k. functions.sortbyX    - forEach house built up functions that show the students sorted byX
+        sorting process
+        j. funct.sortList =>    - started just appliying sort functions one by one 
+                                - later on put them together in this function with if statements
+                                - return the array sorting "asc". 
+                                - toggle the direction with if statement return 1 and -1.
+                                - calls-back a sorted funct.displayNewList. 
+        k. functions.sortbyX    - forEach house built up functions that show the students sorted byX
 
-            adding user interactivity
-            l. funct.buttons    =>   - set eventListener in the buttons to sort, this buttos call-back the funct.select.Sort
-            m. funct.selectSort =>   - funct.selectSort => set the event target as a filter and return it
-                                     - calls-back funct.sortList 
-
+        adding user interactivity
+        l. funct.buttons    =>   - set eventListener in the buttons to sort, this buttos call-back the funct.select.Sort
+        m. funct.selectSort =>   - funct.selectSort => set the event target as a filter and return it
+                                    - calls-back funct.sortList 
 
                                     refactoring sorting functions
                                      - move the funct.sortBy(X) into the funct.sortList for closure 
                                      - change the sortByX to [array.sortByProperty]
 
 
-expelled student plan
-No new functions it is build in the clone and display in the filterList
-- if the student.enrole=false=> splice the student from the allStudents 
-- and push the student into the expelled list
-- build the expelled list with the expell button
-making visual feedback of the expelle
-- add animation transform translate (in the expelled estudent function)
+            expelled student plan
+                        No new functions it is build in the clone and display in the filterList
+                        - if the student.enrole=false=> splice the student from the allStudents 
+                        - and push the student into the expelled list
+                        - build the expelled list with the expell button
+
+            making visual feedback of the expelle
+                        - add animation transform translate (in the expelled estudent function)
+
+            Prefects plan
+                        - closure function to determine if the student is prefect or not inside the clone
+                        - if it is not callback function handlePrefects
+            n.- funct.handlePrefects with closure functions for the rules
+                        - Determine if there is already 2 prefects:
+                                    - if no - assign the selected student as prefect calling closure.func.assignPrefec
+                                    - if yes callback function remove AorB 
+                        - closure.funct.removeAorB with event listener in buttons calling functions removeX
+                                   - closure funct.removeX and assign selected student as prefect calling back the closurefunc.assignPrefec
+                                   - and funct.closePop-up erasing the event listener 
+                        - adding the prefect filter in the function filter list by creating a function.prefects that return an array with just the prefects
+            Blood Status plan
+            - funct.loadJSONFamilies =>getting the second json filter
+            - changing the fetch function to async and await to be able to wait until all the data(2files) is ready
+            - pushing the data into the arrays halfblood and pure Blood
+            -  
+                                    

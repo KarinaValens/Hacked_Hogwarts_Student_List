@@ -3,7 +3,7 @@
   /* colors */
   --bc: hsl(0deg 0% 0%);
   --high-light: hsl(55deg 89% 47%);
-  --high-light2: hsl(233deg 88% 41%);
+  --high-light2: hsl(0deg 76% 49%);
   --house-gryf: hsl(354deg 58% 32%);
   --house-slyt: hsl(139, 23%, 24%);
   --house-huff: hsl(42deg 57% 32%);
@@ -229,19 +229,25 @@ main.close {
   color: var(--white);
 }
 
-/* prefects */
+/* -------- //PREFECTS// ------------ */
+td[data-field="prefect"]::after {
+  content: "🧙‍♀️";
+}
 
+td[data-field="prefect"][data-prefect="false"]::after {
+  filter: grayscale(1);
+}
 #remove_aorb {
   display: none;
   position: absolute;
   left: 30%;
   top: 30%;
   width: 40%;
-  color: var(--white);
+  color: var(--high-light2);
   font: bold 1rem/3rem var(--font-tittle);
   text-align: center;
-  padding: 0.7rem 2rem;
-  background: linear-gradient(135deg, rgb(99 89 148), rgb(99 89 148 / 48%));
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 6px;
@@ -272,6 +278,7 @@ main.close {
 }
 .gryf_background {
   background-color: var(--house-gryf);
+  /* experimenting changing the backgound color of each prefect but it is not working(yet) */
 }
 .slyt_color {
   color: var(--house-slyt);
@@ -334,14 +341,7 @@ th.sortBy[data-sort-direction="desc"]::after {
 .animation {
   animation: animation 2s ease-in-out;
 }
-/* -------- //PREFECTS// ------------ */
-td[data-field="prefect"]::after {
-  content: "🧙‍♀️";
-}
 
-td[data-field="prefect"][data-prefect="false"]::after {
-  filter: grayscale(1);
-}
 /* -------- //INQUISITORIAL SQUAD// ------------ */
 
 td[data-field="inq_squad"]::after {

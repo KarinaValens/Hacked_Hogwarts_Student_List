@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", init);
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 const url2 = "https://petlatkea.dk/2021/hogwarts/families.json";
+
+
+let isHackingFlag; //let´s the hacking begins
+
+
 let allStudents = [];
 let expelledStudent = [];
 let halfBlood = []; //loop to check if the student last name apears in one of the list
@@ -50,7 +55,7 @@ async function loadJson() {
          .then((studentData) => { //this 2 parameters are the same
              handleJsonData(studentData); //assign the data as a parameter
          }); */
-
+    //loading first URL with async and await it is a better way to be sure to have the data ready
     const res = await fetch(url);
     const studentData = await res.json();
     const familiesData = await loadJsonFamilies(); //this line make the the call back for handleJsonData wait until familiesData is upload
@@ -58,6 +63,7 @@ async function loadJson() {
 }
 
 async function loadJsonFamilies() {
+    //loading second URL
     const res = await fetch(url2);
     const familiesData = await res.json()
     //return the families data to make it available outsite the function
@@ -68,11 +74,11 @@ function handleJsonData(studentInf, familiesData) {
 
     familiesData.half.forEach(lastName => {
         halfBlood.push(lastName);
-    });
+    }); //getting the blood status data into the halfBlood array 
 
     familiesData.pure.forEach(lastName => {
         pureBlood.push(lastName);
-    });
+    }); //getting the blood status data into the pureBlood array 
 
     studentInf.forEach(stud => {
         //clean the data for each element
@@ -368,7 +374,6 @@ function displayStudent(student) {
             document.querySelector("#body_list").classList = " ";
         })
 
-
         //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
         document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
         document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
@@ -533,8 +538,7 @@ function managePrefects(selectedStudent) {
     console.log(otherPrefect);
     //if there are 2 of the same type    
     if (prefectsPerHouse === 2) {
-        console.log("there can only be 2 prefects total");
-        removeAorB(prefects[0], prefects[1]); //the two first items in the array
+        removeAorB(otherPrefect[0], otherPrefect[1]); //the two first items in the array
     } else {
         assignPrefect(selectedStudent);
     }
@@ -545,15 +549,17 @@ function managePrefects(selectedStudent) {
         //if remove A
         document.querySelector("#close_pop_remov_aorb").addEventListener("click", closePopUp)
         document.querySelector("#remove_aorb").classList.add("open");
-        document.querySelector("#house_name").textContent = prefectA.house.toUpperCase();
+        document.querySelector("#house_name").textContent = selectedStudent.house.toUpperCase();
         //hidde the main
         document.querySelector("main").classList.add("close");
 
+
         document.querySelector("#remove_a").addEventListener("click", removeA);
-        document.querySelector("#remove_b").addEventListener("click", removeB);
-        //showing prefects names
         document.querySelector("#remove_aorb [data-field=prefectA]").textContent = prefectA.name;
+        document.querySelector("#remove_b").addEventListener("click", removeB);
         document.querySelector("#remove_aorb [data-field=prefectB]").textContent = prefectB.name;
+
+        //showing prefects names
 
         function removeA() {
             assignPrefect(selectedStudent);
@@ -583,5 +589,35 @@ function managePrefects(selectedStudent) {
 
     function assignPrefect(student) {
         student.prefect = true;
+    }
+}
+
+
+/* --------------------------- // HACKING// -------------------------------- */
+
+function hackTheSystem() {
+    if (isHackingFlag === true) {
+
+        allStudents.push({
+            name: Karina,
+            lastName: Valens,
+            middleName: Elizabeth,
+            nickName: Kary,
+            house: Gryffindor,
+            enrole: true,
+            prefect: false,
+            bloodStatus: "muggle",
+            squad: false
+        });
+        /*    name: " ",
+    lastName: " ",
+    middleName: " ",
+    nickName: " ",
+    photo: " ",
+    house: " ",
+    enrole: true,
+    prefect: false,
+    bloodStatus: "muggle",
+    squad: false  */
     }
 }
