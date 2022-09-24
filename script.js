@@ -39,6 +39,7 @@ function init() {
     loadJson();
     buttons();
     search();
+    hackTheSystem();
 }
 
 function buttons() {
@@ -129,9 +130,27 @@ function handleJsonData(studentInf, familiesData) {
             student.bloodStatus = "muggle-born"
         }
 
+
+
         //adding a student to the allStudents array of object at the beginning of the script
         return allStudents.push(student);
     });
+    /* ------------------------------------- // HACKING //-------------------------------- */
+
+    if (isHackingFlag === true) {
+        const karyObj = {
+            name: "Karina",
+            lastName: "Valens",
+            middleName: "Elizabeth",
+            nickName: "Kary",
+            house: "Gryffindor",
+            enrole: true,
+            prefect: false,
+            bloodStatus: "muggle",
+            squad: false
+        };
+        return karyObj;
+    }    
 
     getTotal();
     buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
@@ -509,14 +528,10 @@ function displayStudent(student) {
     function selectSquad() {
         if (student.squad === true) {
             student.squad = false;
-
-        } else if (student.bloodStatus === "pure-blood") {
-            if (student.house === "Slytherin") { //manageSquad(student);
-                student.squad = true;
-            }
+        } else if (student.bloodStatus === "pure-blood" || student.house === "Slytherin") {
+            student.squad = true;
         }
         buildtList();
-        console.log(student.lastName, student.squad);
     }
 
     // 4.- Select the new DOM parent element
@@ -535,7 +550,6 @@ function managePrefects(selectedStudent) {
     const otherPrefect = prefects.filter(student => student.house === selectedStudent.house); //gives me an array with the prefects from each house
     const prefectsPerHouse = otherPrefect.length;
 
-    console.log(otherPrefect);
     //if there are 2 of the same type    
     if (prefectsPerHouse === 2) {
         removeAorB(otherPrefect[0], otherPrefect[1]); //the two first items in the array
@@ -596,28 +610,29 @@ function managePrefects(selectedStudent) {
 /* --------------------------- // HACKING// -------------------------------- */
 
 function hackTheSystem() {
-    if (isHackingFlag === true) {
 
-        allStudents.push({
-            name: Karina,
-            lastName: Valens,
-            middleName: Elizabeth,
-            nickName: Kary,
-            house: Gryffindor,
-            enrole: true,
-            prefect: false,
-            bloodStatus: "muggle",
-            squad: false
-        });
-        /*    name: " ",
-    lastName: " ",
-    middleName: " ",
-    nickName: " ",
-    photo: " ",
-    house: " ",
-    enrole: true,
-    prefect: false,
-    bloodStatus: "muggle",
-    squad: false  */
-    }
+    isHackingFlag = false;
+
+    document.addEventListener("keyup", (e) => {
+        //console.log(e);
+        if (e.key === "Delete") {
+            isHackingFlag = !isHackingFlag;
+            console.log(isHackingFlag);
+
+            document.querySelector("#hacking").classList.add("open");
+            document.querySelector("#body_list").classList.add("backgroundDark");
+            document.querySelector("main").classList.add("close");
+
+
+
+            /* ------- //Close Pop_up */
+            document.querySelector("#close_pop_hack").addEventListener("click", () => {
+                document.querySelector("#hacking").classList.remove("open");
+                document.querySelector("#body_list").classList.remove("backgroundDark");
+                document.querySelector("main").classList.remove("close");
+            });
+
+        }
+    })
+
 }

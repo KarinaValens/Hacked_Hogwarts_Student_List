@@ -81,8 +81,19 @@
                                    - and funct.closePop-up erasing the event listener 
                         - adding the prefect filter in the function filter list by creating a function.prefects that return an array with just the prefects
             Blood Status plan
-            - funct.loadJSONFamilies =>getting the second json filter
-            - changing the fetch function to async and await to be able to wait until all the data(2files) is ready
-            - pushing the data into the arrays halfblood and pure Blood
-            -  
+            o.- funct.loadJSONFamilies =>getting the second json filter
+                    - changing the fetch function to async and await to be able to wait until all the data(2files) is ready
+                        passing the paramenters studentData, familiesData into the funct.handleJsonData to acces both json data;
+                    - pushing the data into the arrays halfblood and pure Blood with forEach
+                    - determine the students blood status with if statemens checking if their 
+                        lastname is in one of the lists inside the handleJsonData(). 
+            p.- Inquisitorial squad
+                    - inside the clon if statements if the student is from Slytherin or is pureblood can be a member
+            
+Hacking part
+- isFlag patern
+- keyup event listener to activate the isFlagHacking patern
+        - apply the event listener keyup on to the DOM(document).
+        - determine an specific key or keys to activate the isFlag patern(key===Delete)
+            
                                     
