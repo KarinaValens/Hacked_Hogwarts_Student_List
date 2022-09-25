@@ -95,5 +95,7 @@ Hacking part
 - keyup event listener to activate the isFlagHacking patern
         - apply the event listener keyup on to the DOM(document).
         - determine an specific key or keys to activate the isFlag patern(key===Delete)
+        - make an obj with my info and push it into the allStudents in the case of the isFlag is true
+        - dont allow the user to expell me using again if(isFlagHacking===true)? where in the functions?
             
                                     
