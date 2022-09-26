@@ -99,7 +99,7 @@ footer {
 /* --------------------------------- Student List Page --------------------- */
 
 #body_list {
-  background: var(--background) url(./images/rithika-gopalakrishnan-JK0l2xvN1fY-unsplash.jpg) no-repeat right top;
+  background: var(--background) url(./images/list_background.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
   overflow-x: hidden;
@@ -191,7 +191,7 @@ main {
   background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
+  border-radius: 15px;
 }
 
 #house {
@@ -250,7 +250,7 @@ td[data-field="prefect"][data-prefect="false"]::after {
   background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
+  border-radius: 15px;
 }
 #remove_a,
 #remove_b {
@@ -364,7 +364,7 @@ td[data-field="inq_squad"][data-squad="false"]::after {
   background: linear-gradient(135deg, rgba(255, 255, 255.1), rgba(255, 255, 255, 0));
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
+  border-radius: 15px;
 }
 
 #close_pop_hack {

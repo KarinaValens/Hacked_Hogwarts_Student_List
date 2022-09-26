@@ -139,18 +139,28 @@ function handleJsonData(studentInf, familiesData) {
 
         /* ------------------------------------- //BLOOD STATUS//-------------------------------- */
         if (isHackingFlag === true) {
+
             const randomBlood = Math.floor(Math.random() * 4 + 1);
-            switch (randomBlood) {
+            const array = ["pure-blood", "muggle-born", "half-blood"]
+
+            student.bloodStatus = array[randomBlood];
+            /* switch (randomBlood) {
                 case 1:
-                    student.bloodStatus = "half-blood";
+                    pureBlood.includes(student.lastName)
+                    student.bloodStatus = array[randomBlood];
                     break;
                 case 2:
-                    student.bloodStatus = "pure-blood";
+                    halfBlood.includes(student.lastName)
+                    student.bloodStatus = array[randomBlood];
                     break;
                 case 3:
-                    student.bloodStatus = "muggle-born";
+                    !halfBlood.includes(student.lastName) && !pureBlood.includes(student.lastName)
+                    student.bloodStatus = array[randomBlood];
                     break;
             }
+            hackTheSystem(student.bloodStatus);
+            console.log("i am being called");
+            return bloodStatus; */
         } else if (halfBlood.includes(student.lastName)) {
             student.bloodStatus = "half-blood";
         } else if (pureBlood.includes(student.lastName)) {
@@ -161,7 +171,6 @@ function handleJsonData(studentInf, familiesData) {
         //adding a student to the allStudents array of object at the beginning of the script
         return allStudents.push(student);
     });
-
     buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
 }
 
@@ -288,7 +297,6 @@ function squad(student) {
     return student.squad === true;
 }
 /* ------------------------------ // SORTING // ---------------------------------- */
-
 function selectSort(event) {
     const sortBy = event.target.dataset.sort;
     const sortDir = event.target.dataset.sortDirection;
@@ -307,7 +315,6 @@ function selectSort(event) {
     } else {
         event.target.dataset.sortDirection = "asc"
     }
-    console.log(`user selected ${sortBy} ${sortDir}`);
     setSort(sortBy, sortDir);
 }
 
@@ -428,6 +435,11 @@ function displayStudent(student) {
             student.squad = true;
         }
         buildtList();
+
+        if (isHackingFlag === true) {
+            setTimeout(selectSquad, 6000);
+            console.log("I am being called")
+        }
     }
     /* --------------------------- // EXPELL STUDENTS// -------------------------------- */
     if (student.enrole === true) {
@@ -448,7 +460,9 @@ function displayStudent(student) {
                 buildtList();
             })
         }
-
+        /* if (isHackingFlag === true) {
+            Object.freeze(karyObj);
+        } */
     }
 
     /* --------------------------- //BLOOD STATUS// -------------------------------- */
@@ -463,7 +477,10 @@ function displayStudent(student) {
 
     /* ---------------------------------- //POP-UP// ----------------------------------- */
 
-    clone.querySelector(".pop").addEventListener("click", (event) => {
+    clone.querySelector(".pop").addEventListener("click", popInfo);
+
+    function popInfo() {
+
         //open pop-up
         document.querySelector("#pop_up").classList.add("open");
         //hidding table
@@ -497,6 +514,7 @@ function displayStudent(student) {
         } else {
             document.querySelector("#expelled").textContent = "❌ Expelled";
         }
+
         //Blood status
         if (student.bloodStatus === "half--half-blood") {
             document.querySelector("#familyBlood").textContent = `🧙 + 👨‍👦 ${student.bloodStatus}`;
@@ -548,9 +566,9 @@ function displayStudent(student) {
             elements.forEach(element => {
                 element.classList.add("raven_color")
             });
-        }
-    });
 
+        }
+    }
 
     // 4.- Select the new DOM parent element
     const parent = document.querySelector("tbody");
