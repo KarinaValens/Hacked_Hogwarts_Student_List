@@ -439,7 +439,7 @@ function displayStudent(student) {
 
         if (student.enrole === true) {
             if (student === karyObj) {
-                console.log('nice try')
+                console.log('nice try') //work in a pop-up or something
             } else {
                 student.enrole = false;
                 this.parentElement.classList.add("animation");
@@ -449,9 +449,7 @@ function displayStudent(student) {
                 })
             }
         }
-        /* if (isHackingFlag === true) {
-            Object.freeze(karyObj);
-        } */
+
     }
 
     /* --------------------------- //BLOOD STATUS// -------------------------------- */
@@ -655,7 +653,6 @@ function hackTheSystem() {
 
         }
 
-
         function closePop() {
             document.querySelector("#hacking").classList.remove("open");
             document.querySelector("#body_list").classList.remove("backgroundDark");
@@ -669,29 +666,18 @@ function hackTheSystem() {
             //else if halfblood = pureblood
             //else if muggle = pureblood
 
-            const randomBlood = Math.floor(Math.random() * 4 + 1);
+            const randomBlood = Math.floor(Math.random() * 3);
             const array = ["pure-blood", "muggle-born", "half-blood"]
 
-            student.bloodStatus = array[randomBlood];
-            /* switch (randomBlood) {
-                case 1:
-                    pureBlood.includes(student.lastName)
-                    student.bloodStatus = array[randomBlood];
-                    break;
-                case 2:
-                    halfBlood.includes(student.lastName)
-                    student.bloodStatus = array[randomBlood];
-                    break;
-                case 3:
-                    !halfBlood.includes(student.lastName) && !pureBlood.includes(student.lastName)
-                    student.bloodStatus = array[randomBlood];
-                    break;
+            //    student.bloodStatus = array[randomBlood];
+            if (student.bloodStatus === "pure-blood") {
+
+                student.bloodStatus = array[randomBlood];
+            } else {
+                student.bloodStatus = "pure-blood"
             }
-            hackTheSystem(student.bloodStatus);
-            console.log("i am being called");
-            return bloodStatus; */
         })
-        //call buildfunction
+        buildtList();
     }
 
 }
