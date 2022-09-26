@@ -90,7 +90,7 @@ async function loadJsonFamilies() {
 
 /* ---------------------- //CONVERT THE DATA INTO JAVASCRIPT OBJ// ------------ */
 
-function handleJsonData(studentInf, familiesData) {
+function handleJsonData(studentData, familiesData) {
 
     familiesData.half.forEach(lastName => {
         halfBlood.push(lastName);
@@ -100,7 +100,7 @@ function handleJsonData(studentInf, familiesData) {
         pureBlood.push(lastName);
     }); //getting the blood status data into the pureBlood array 
 
-    studentInf.forEach(stud => {
+    studentData.forEach(stud => {
         //clean the data for each element
         const student = Object.create(Student); //at this point create the Prototype object for Student
         const fullN = stud.fullname.trim();
@@ -140,27 +140,7 @@ function handleJsonData(studentInf, familiesData) {
         /* ------------------------------------- //BLOOD STATUS//-------------------------------- */
         if (isHackingFlag === true) {
 
-            const randomBlood = Math.floor(Math.random() * 4 + 1);
-            const array = ["pure-blood", "muggle-born", "half-blood"]
-
-            student.bloodStatus = array[randomBlood];
-            /* switch (randomBlood) {
-                case 1:
-                    pureBlood.includes(student.lastName)
-                    student.bloodStatus = array[randomBlood];
-                    break;
-                case 2:
-                    halfBlood.includes(student.lastName)
-                    student.bloodStatus = array[randomBlood];
-                    break;
-                case 3:
-                    !halfBlood.includes(student.lastName) && !pureBlood.includes(student.lastName)
-                    student.bloodStatus = array[randomBlood];
-                    break;
-            }
-            hackTheSystem(student.bloodStatus);
-            console.log("i am being called");
-            return bloodStatus; */
+            hackTheSystem();
         } else if (halfBlood.includes(student.lastName)) {
             student.bloodStatus = "half-blood";
         } else if (pureBlood.includes(student.lastName)) {
@@ -437,7 +417,12 @@ function displayStudent(student) {
         buildtList();
 
         if (isHackingFlag === true) {
-            setTimeout(selectSquad, 6000);
+            setTimeout(() => {
+                if (student.bloodStatus === "pure-blood" || student.house === "Slytherin") {
+                    student.squad = false
+                }
+                buildtList();
+            }, 1000);
             console.log("I am being called")
         }
     }
@@ -453,12 +438,16 @@ function displayStudent(student) {
     function expellStudent() {
 
         if (student.enrole === true) {
-            student.enrole = false;
-            this.parentElement.classList.add("animation");
-            this.parentElement.addEventListener("animationend", () => {
-                expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
-                buildtList();
-            })
+            if (student === karyObj) {
+                console.log('nice try')
+            } else {
+                student.enrole = false;
+                this.parentElement.classList.add("animation");
+                this.parentElement.addEventListener("animationend", () => {
+                    expelledStudent.push(allStudents.splice(allStudents.indexOf(student), 1)[0]);
+                    buildtList();
+                })
+            }
         }
         /* if (isHackingFlag === true) {
             Object.freeze(karyObj);
@@ -493,8 +482,8 @@ function displayStudent(student) {
         })
 
         //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
-        document.querySelector("img").src = `../images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
-        document.querySelector("img").alt = `../images/stud_images/${student.lastName}.png`;
+        document.querySelector("img").src = `../assets/images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
+        document.querySelector("img").alt = `../assets/images/stud_images/${student.lastName}.png`;
         document.querySelector("#student_full_name").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
         document.querySelector("#nick_name").textContent = student.nickName;
         if (student.prefect === true && student.squad === true) {
@@ -649,7 +638,7 @@ function hackTheSystem() {
 
     isHackingFlag = false;
 
-    document.addEventListener("keyup", hacking)
+    document.addEventListener("keydown", hacking)
 
     function hacking(e) {
         if (e.key === "Delete") {
@@ -675,6 +664,34 @@ function hackTheSystem() {
             document.removeEventListener("keyup", hacking);
 
         }
+        allStudents.forEach((student) => {
+            //check if blood is pure then randomize and set to half or muggle
+            //else if halfblood = pureblood
+            //else if muggle = pureblood
 
+            const randomBlood = Math.floor(Math.random() * 4 + 1);
+            const array = ["pure-blood", "muggle-born", "half-blood"]
+
+            student.bloodStatus = array[randomBlood];
+            /* switch (randomBlood) {
+                case 1:
+                    pureBlood.includes(student.lastName)
+                    student.bloodStatus = array[randomBlood];
+                    break;
+                case 2:
+                    halfBlood.includes(student.lastName)
+                    student.bloodStatus = array[randomBlood];
+                    break;
+                case 3:
+                    !halfBlood.includes(student.lastName) && !pureBlood.includes(student.lastName)
+                    student.bloodStatus = array[randomBlood];
+                    break;
+            }
+            hackTheSystem(student.bloodStatus);
+            console.log("i am being called");
+            return bloodStatus; */
+        })
+        //call buildfunction
     }
+
 }

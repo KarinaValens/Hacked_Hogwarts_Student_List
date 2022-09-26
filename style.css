@@ -61,7 +61,7 @@ h2 {
 
 #intro_page {
   height: 100%;
-  background: var(--background) url(./images/home_page_backg.jpg) no-repeat right top;
+  background: var(--background) url(./assets/images/home_page_backg.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
 }
@@ -99,7 +99,7 @@ footer {
 /* --------------------------------- Student List Page --------------------- */
 
 #body_list {
-  background: var(--background) url(./images/list_background.jpg) no-repeat right top;
+  background: var(--background) url(../Hacked_Hogwarts_Student_List/assets/images/list_background.jpg) no-repeat right top;
   background-blend-mode: color;
   background-size: cover;
   overflow-x: hidden;
@@ -297,16 +297,16 @@ td[data-field="prefect"][data-prefect="false"]::after {
   background-size: cover;
 }
 #body_list.back_griff {
-  background: var(--background) url(./images/Gryffindor.jpg) repeat top;
+  background: var(--background) url(./assets/images/Gryffindor.jpg) repeat top;
 }
 #body_list.back_slyt {
-  background: var(--background) url(./images/Slytherin.jpg) repeat top;
+  background: var(--background) url(./assets/images/Slytherin.jpg) repeat top;
 }
 #body_list.back_huff {
-  background: var(--background) url(./images/Hufflepuff.jpg) repeat top;
+  background: var(--background) url(./assets/images/Hufflepuff.jpg) repeat top;
 }
 #body_list.back_raven {
-  background: var(--background) url(./images/Ravenclawn.jpg) repeat top;
+  background: var(--background) url(./assets/images/Ravenclawn.jpg) repeat top;
 }
 tr.hidde {
   display: none;
