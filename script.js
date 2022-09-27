@@ -441,8 +441,7 @@ function displayStudent(student) {
         function closeHackerPop() {
             document.querySelector("#hacker").classList.remove("open");
             document.querySelector("main").classList.remove("close");
-            document.querySelector("#close_pop_hacker").removeEventListener("click", closeHackerPop)
-
+            document.querySelector("#close_pop_hacker").removeEventListener("click", closeHackerPop);
         }
     }
 
