@@ -155,7 +155,7 @@ input {
 }
 
 #search {
-  background: url(./images/search-normal.png) no-repeat right;
+  background: url(./assets/images/search-normal.png) no-repeat right;
   background-size: 13%;
 }
 
@@ -277,6 +277,9 @@ td[data-field="prefect"][data-prefect="false"]::after {
   color: var(--house-gryf);
 }
 
+tr.gryf_background {
+  background-color: var(--house-gryf);
+}
 .slyt_color {
   color: var(--house-slyt);
 }
@@ -351,11 +354,12 @@ td[data-field="inq_squad"][data-squad="false"]::after {
 
 /* ---------- //pop-up hacking// ----------- */
 
-#hacking {
+#hacking,
+#hacker {
   display: none;
   position: absolute;
   left: 30%;
-  top: 30%;
+  top: 40%;
   width: 40%;
   color: var(--high-light2);
   font: bold 1rem/3rem var(--font-tittle);
@@ -367,16 +371,19 @@ td[data-field="inq_squad"][data-squad="false"]::after {
   border-radius: 15px;
 }
 
-#close_pop_hack {
-  font: bold 3rem/3rem var(--font-tittle);
+#close_pop_hack,
+#close_pop_hacker {
+  font: bold 2rem/2rem var(--font-tittle);
   position: absolute;
-  top: 10%;
-  right: 7%;
+  top: 4%;
+  right: 4%;
   color: var(--white);
 }
-#hacking.open {
+#hacking.open,
+#hacker.open {
   display: block;
 }
+
 #body_list.backgroundDark {
   background-color: black;
   /* experimenting changing the backgound color of each prefect but it is not working(yet) */

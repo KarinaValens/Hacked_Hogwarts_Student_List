@@ -1,19 +1,15 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
 
-
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 const url2 = "https://petlatkea.dk/2021/hogwarts/families.json";
 
-
 let isHackingFlag; //let´s the hacking begins
-
-
+//ARRAYS
 let allStudents = [];
 let expelledStudent = [];
 let halfBlood = []; //loop to check if the student last name apears in one of the list
 let pureBlood = []; //loop to check if the student last name apears in one of the list
-
 
 //PROTOTYPE OBJECT
 const Student = {
@@ -139,7 +135,6 @@ function handleJsonData(studentData, familiesData) {
 
         /* ------------------------------------- //BLOOD STATUS//-------------------------------- */
         if (isHackingFlag === true) {
-
             hackTheSystem();
         } else if (halfBlood.includes(student.lastName)) {
             student.bloodStatus = "half-blood";
@@ -148,8 +143,8 @@ function handleJsonData(studentData, familiesData) {
         } else if (!halfBlood.includes(student.lastName) && !pureBlood.includes(student.lastName)) {
             student.bloodStatus = "muggle-born"
         }
-        //adding a student to the allStudents array of object at the beginning of the script
-        return allStudents.push(student);
+
+        return allStudents.push(student); //this adds a student to the allStudents array of object at the beginning of the script
     });
     buildtList(allStudents); //IF I CALL THIS FUNCTION ALL THE LIST SORT BY NAME BY DEFAULT
 }
@@ -328,7 +323,6 @@ function buildtList() {
     let currentList = filterList(allStudents);
     const sortedList = sortList(currentList);
     displayNewList(sortedList);
-
 }
 
 /* ------------------------------ // SEARCH // ---------------------------------- */
@@ -349,7 +343,6 @@ function search() {
 }
 
 /* ------------------------------ // DISPLAY THE NEW VIEW // ---------------------------------- */
-
 
 function displayNewList(students) {
 
@@ -381,25 +374,19 @@ function displayStudent(student) {
     function selectPrefect() {
         if (student.prefect === true) {
             student.prefect = false;
+
         } else {
             managePrefects(student);
+
         }
+        buildtList();
 
         //trying to change the backgroun of the prefects td
         /* if (student.house === "Gryffindor") {
-            document.querySelector.classList.add("gryf_background");
-            console.log("gryf backgroung");
-        } else if (student.prefect && student.house === "Slytherin") {
-            this.parentElement.classList.add("prefectS");
-            console.log("slyd backgroung");
+            //document.querySelector("tbody tr").classList.add("gryf_background");
+            this.parentElement.style.color = "red";
             console.log(this.parentElement);
-        } else if (student.prefect && student.house === "Hufflepuff") {
-            this.parentElement.classList.add("prefectH");
-        } else if (student.prefect && student.house === "Ravenclaw") {
-            this.parentElement.classList.add("prefectR");
         } */
-
-        buildtList();
     }
     /* ------------------------------ // INQUISITORIAL SQUAD // ---------------------------------------- */
 
@@ -422,7 +409,7 @@ function displayStudent(student) {
                     student.squad = false
                 }
                 buildtList();
-            }, 1000);
+            }, 3000);
             console.log("I am being called")
         }
     }
@@ -436,10 +423,11 @@ function displayStudent(student) {
     clone.querySelector("[data-field=enrole]").addEventListener("click", expellStudent);
 
     function expellStudent() {
-
         if (student.enrole === true) {
             if (student === karyObj) {
-                console.log('nice try') //work in a pop-up or something
+                document.querySelector("#hacker").classList.add("open");
+                document.querySelector("main").classList.add("close");
+                document.querySelector("#close_pop_hacker").addEventListener("click", closeHackerPop)
             } else {
                 student.enrole = false;
                 this.parentElement.classList.add("animation");
@@ -450,6 +438,12 @@ function displayStudent(student) {
             }
         }
 
+        function closeHackerPop() {
+            document.querySelector("#hacker").classList.remove("open");
+            document.querySelector("main").classList.remove("close");
+            document.querySelector("#close_pop_hacker").removeEventListener("click", closeHackerPop)
+
+        }
     }
 
     /* --------------------------- //BLOOD STATUS// -------------------------------- */
@@ -590,13 +584,10 @@ function managePrefects(selectedStudent) {
         //hidde the main
         document.querySelector("main").classList.add("close");
 
-
         document.querySelector("#remove_a").addEventListener("click", removeA);
         document.querySelector("#remove_aorb [data-field=prefectA]").textContent = prefectA.name;
         document.querySelector("#remove_b").addEventListener("click", removeB);
         document.querySelector("#remove_aorb [data-field=prefectB]").textContent = prefectB.name;
-
-        //showing prefects names
 
         function removeA() {
             assignPrefect(selectedStudent);
@@ -614,7 +605,7 @@ function managePrefects(selectedStudent) {
 
         function closePopUp() {
             document.querySelector("#remove_a").removeEventListener("click", removeA);
-            document.querySelector("#remove_a").removeEventListener("click", removeB);
+            document.querySelector("#remove_b").removeEventListener("click", removeB);
             document.querySelector("#remove_aorb").classList.remove("open");
             document.querySelector("main").classList.remove("close");
         }
@@ -629,28 +620,26 @@ function managePrefects(selectedStudent) {
     }
 }
 
-
 /* --------------------------- // HACKING// -------------------------------- */
 
 function hackTheSystem() {
 
     isHackingFlag = false;
-
     document.addEventListener("keydown", hacking)
 
     function hacking(e) {
         if (e.key === "Delete") {
             isHackingFlag = !isHackingFlag;
-            console.log("isHackingFlag=", isHackingFlag);
 
             document.querySelector("#hacking").classList.add("open");
             document.querySelector("#body_list").classList.add("backgroundDark");
             document.querySelector("main").classList.add("close");
             document.querySelector("#close_pop_hack").addEventListener("click", closePop)
+            document.removeEventListener("keydown", hacking)
 
+            //adding an object to the student list 
             allStudents.push(karyObj);
             buildtList(karyObj);
-
         }
 
         function closePop() {
@@ -658,20 +647,15 @@ function hackTheSystem() {
             document.querySelector("#body_list").classList.remove("backgroundDark");
             document.querySelector("main").classList.remove("close");
             document.querySelector("#close_pop_hack").removeEventListener("click", closePop);
-            document.removeEventListener("keyup", hacking);
-
         }
         allStudents.forEach((student) => {
             //check if blood is pure then randomize and set to half or muggle
             //else if halfblood = pureblood
             //else if muggle = pureblood
-
             const randomBlood = Math.floor(Math.random() * 3);
             const array = ["pure-blood", "muggle-born", "half-blood"]
 
-            //    student.bloodStatus = array[randomBlood];
             if (student.bloodStatus === "pure-blood") {
-
                 student.bloodStatus = array[randomBlood];
             } else {
                 student.bloodStatus = "pure-blood"
@@ -679,5 +663,4 @@ function hackTheSystem() {
         })
         buildtList();
     }
-
 }
