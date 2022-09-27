@@ -407,11 +407,21 @@ function displayStudent(student) {
             setTimeout(() => {
                 if (student.bloodStatus === "pure-blood" || student.house === "Slytherin") {
                     student.squad = false
+                    document.querySelector("#deleted_squad").classList.add("open");
+                    document.querySelector("main").classList.add("close");
+                    document.querySelector("#body_list").classList.add("backgroundDark");
+                    document.querySelector("#close_pop_deleted_squad").addEventListener("click", closeSquadPop);
                 }
                 buildtList();
             }, 3000);
-            console.log("I am being called")
         }
+    }
+
+    function closeSquadPop() {
+        document.querySelector("#deleted_squad").classList.remove("open");
+        document.querySelector("main").classList.remove("close");
+        document.querySelector("#body_list").classList.remove("backgroundDark");
+        document.querySelector("#close_pop_deleted_squad").removeEventListener("click", closeSquadPop);
     }
     /* --------------------------- // EXPELL STUDENTS// -------------------------------- */
     if (student.enrole === true) {
@@ -427,6 +437,7 @@ function displayStudent(student) {
             if (student === karyObj) {
                 document.querySelector("#hacker").classList.add("open");
                 document.querySelector("main").classList.add("close");
+                document.querySelector("#body_list").classList.add("backgroundDark");
                 document.querySelector("#close_pop_hacker").addEventListener("click", closeHackerPop)
             } else {
                 student.enrole = false;
@@ -441,6 +452,7 @@ function displayStudent(student) {
         function closeHackerPop() {
             document.querySelector("#hacker").classList.remove("open");
             document.querySelector("main").classList.remove("close");
+            document.querySelector("#body_list").classList.remove("backgroundDark");
             document.querySelector("#close_pop_hacker").removeEventListener("click", closeHackerPop);
         }
     }

@@ -355,7 +355,8 @@ td[data-field="inq_squad"][data-squad="false"]::after {
 /* ---------- //pop-up hacking// ----------- */
 
 #hacking,
-#hacker {
+#hacker,
+#deleted_squad {
   display: none;
   position: absolute;
   left: 30%;
@@ -372,7 +373,8 @@ td[data-field="inq_squad"][data-squad="false"]::after {
 }
 
 #close_pop_hack,
-#close_pop_hacker {
+#close_pop_hacker,
+#close_pop_deleted_squad {
   font: bold 2rem/2rem var(--font-tittle);
   position: absolute;
   top: 4%;
@@ -380,7 +382,8 @@ td[data-field="inq_squad"][data-squad="false"]::after {
   color: var(--white);
 }
 #hacking.open,
-#hacker.open {
+#hacker.open,
+#deleted_squad.open {
   display: block;
 }
 
