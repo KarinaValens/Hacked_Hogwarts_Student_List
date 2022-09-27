@@ -60,6 +60,7 @@ h2 {
 }
 
 #intro_page {
+  position: relative;
   height: 100%;
   background: var(--background) url(./assets/images/home_page_backg.jpg) no-repeat right top;
   background-blend-mode: color;
@@ -77,6 +78,20 @@ h2 {
 #title {
   text-align: center;
 }
+@keyframes intro {
+  0% {
+    transform: translateY(70vw);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(0vw);
+    opacity: 1;
+  }
+}
+.intro {
+  animation: intro 4s ease-in-out;
+}
+
 #intro_page p {
   font-size: 1.5rem;
 }
