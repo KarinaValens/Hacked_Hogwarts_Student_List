@@ -647,6 +647,7 @@ function hackTheSystem() {
             document.querySelector("main").classList.remove("close");
             document.querySelector("#close_pop_hack").removeEventListener("click", closePop);
         }
+
         allStudents.forEach((student) => {
             //check if blood is pure then randomize and set to half or muggle
             //else if halfblood = pureblood
@@ -659,7 +660,8 @@ function hackTheSystem() {
             } else {
                 student.bloodStatus = "pure-blood"
             }
+            buildtList();
         })
-        buildtList();
+
     }
 }
