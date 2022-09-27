@@ -486,6 +486,7 @@ function displayStudent(student) {
 
         //tengo problemas displaying the images of patil_padma.png and patil parvati.pgn
         document.querySelector("img").src = `../assets/images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`;
+        console.log(`../assets/images/stud_images/${student.lastName}_${student.name.charAt(0)}.png`);
         document.querySelector("img").alt = `../assets/images/stud_images/${student.lastName}.png`;
         document.querySelector("#student_full_name").textContent = `${student.name} ${student.middleName} ${student.lastName}`;
         document.querySelector("#nick_name").textContent = student.nickName;

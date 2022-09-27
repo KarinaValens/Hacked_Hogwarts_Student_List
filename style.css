@@ -81,7 +81,10 @@ h2 {
 @keyframes intro {
   0% {
     transform: translateY(70vw);
-    opacity: 0.2;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
   }
   100% {
     transform: translateY(0vw);
