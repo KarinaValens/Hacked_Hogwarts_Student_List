@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", init);
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 const url2 = "https://petlatkea.dk/2021/hogwarts/families.json";
 
-let isHackingFlag; //let´s the hacking begins
+let isHackingFlag = false; //let´s the hacking begins
 //ARRAYS
 let allStudents = [];
 let expelledStudent = [];
@@ -635,9 +635,7 @@ function managePrefects(selectedStudent) {
 /* --------------------------- // HACKING// -------------------------------- */
 
 function hackTheSystem() {
-
-    isHackingFlag = false;
-    document.addEventListener("keydown", hacking)
+    document.addEventListener("keydown", hacking);
 
     function hacking(e) {
         if (e.key === "Delete") {
@@ -646,28 +644,29 @@ function hackTheSystem() {
             document.querySelector("#hacking").classList.add("open");
             document.querySelector("#body_list").classList.add("backgroundDark");
             document.querySelector("main").classList.add("close");
-            document.querySelector("#close_pop_hack").addEventListener("click", closePop)
-            document.removeEventListener("keydown", hacking)
-
+            document.querySelector("#close_pop_hack").addEventListener("click", closePop);
+            document.removeEventListener("keydown", hacking);
             //adding an object to the student list 
             allStudents.push(karyObj);
             buildtList(karyObj);
+            bloodHack();
         }
+    }
 
-        function closePop() {
-            document.querySelector("#hacking").classList.remove("open");
-            document.querySelector("#body_list").classList.remove("backgroundDark");
-            document.querySelector("main").classList.remove("close");
-            document.querySelector("#close_pop_hack").removeEventListener("click", closePop);
-        }
+    function closePop() {
+        document.querySelector("#hacking").classList.remove("open");
+        document.querySelector("#body_list").classList.remove("backgroundDark");
+        document.querySelector("main").classList.remove("close");
+        document.querySelector("#close_pop_hack").removeEventListener("click", closePop);
+    }
 
+    function bloodHack() {
         allStudents.forEach((student) => {
             //check if blood is pure then randomize and set to half or muggle
             //else if halfblood = pureblood
             //else if muggle = pureblood
             const randomBlood = Math.floor(Math.random() * 3);
             const array = ["pure-blood", "muggle-born", "half-blood"]
-
             if (student.bloodStatus === "pure-blood") {
                 student.bloodStatus = array[randomBlood];
             } else {
@@ -675,6 +674,5 @@ function hackTheSystem() {
             }
             buildtList();
         })
-
     }
 }
